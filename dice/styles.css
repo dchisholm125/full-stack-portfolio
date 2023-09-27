@@ -1,7 +1,13 @@
-.container-local {
+.container {
   width: 70%;
   margin: auto;
   text-align: center;
+}
+
+.navbar {
+  background: black;
+  text-decoration: none;
+  color: white;
 }
 
 .dice {
