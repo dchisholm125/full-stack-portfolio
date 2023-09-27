@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenSpace - Spreading Science Globally</title>
+    <link href="main.css" type="text/css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300&family=Neuton&family=Noto+Sans+Display:wght@300&family=Satisfy&display=swap" rel="stylesheet">
+
+</head>
+<body>
+        <header class="navbar">
+            <div class="navbar-menu">
+                <div class="container" id="logo-splash">
+                    <img src="./images/tree-icon.png" height="20" /> 
+                    <p>GreenSpace</p>
+                </div>
+                <div class="nav-tab">
+                    Home
+                </div>
+                <div class="nav-tab">
+                    Explore
+                </div>
+                <div class="nav-tab">
+                    News
+                </div>
+            </div>
+        </header>
+
+        <div class="container prof-header">
+            <section class="container profile-row" id="user-prof">
+                <div class="user-profile-displayed">
+                    <div class="profile-pic">
+                        <img src="./images/farnsworth.png" height="200" />
+                            <!-- class="profile-pic" height="200"> -->
+
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" height="140" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+                              </svg> -->
+                    </div>
+                    <div class="flex-row profile-creds">
+                        <div> 
+                            <h2 id="display-name">
+                                Dr. Hubert Farnsworth
+                            </h2>
+                        </div>
+                        <div>
+                            <h3 id="display-title">
+                                Doctor of Mad Science
+                            </h3>
+                        </div>
+                        <div>
+                            <h4 id="user-other-creds">
+                                Owner/Operator of Planet Express Delivery Company
+                            </h4>
+                        </div>
+                        <div>
+                            <h4 id="user-specialties"> 
+                                Propulsion. Quantum Physics. Basic addition/subtraction.
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="flex-row profile-row user-website-info">
+                <div> 
+                    Website:
+                </div>
+                <div>
+                    Other Info:
+                </div>
+            </section>
+        </div>
+        
+        <div class="container posting-row">
+            <section class="user-posts" id="posts">
+                <p id="posts-title">Current research:</p>
+                <div class="post-card">
+                    <p class="post-date">9/27/2023</p>
+                    <p class="post-content"> Today we had a breakthrough in the realm of substantive duality. Mathematically, e = mc^2 applies...</p>
+                    <button class="post-edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" alt="Edit">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                        </svg>
+                    </button>
+                    <button class="post-delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" alt="Delete">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="post-card">
+                    <p class="post-date">9/27/2023</p>
+                    <p class="post-content"> Today we had a breakthrough in the realm of substantive duality. Mathematically, e = mc^2 applies...</p>
+                    <button class="post-edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" alt="Edit">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                        </svg>
+                    </button>
+                    <button class="post-delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" alt="Delete">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="post-card">
+                    <p class="post-date">9/27/2023</p>
+                    <p class="post-content"> Today we had a breakthrough in the realm of substantive duality. Mathematically, e = mc^2 applies...</p>
+                    <button class="post-edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" alt="Edit">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                        </svg>
+                    </button>
+                    <button class="post-delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" alt="Delete">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+            <section class="user-awards" id="awards">
+                <p id="award-title">Field Awards:</p>
+                    <div class="container award-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="award-img" height="25" fill="currentColor" class="award-svg" viewBox="0 0 16 16">
+                            <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                        </svg>
+                        <p>Philosopher's Stone 2022 - Winner (Harry Potter award)</p>
+                    </div>
+
+                    <div class="container award-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="award-img" height="25" fill="currentColor" class="award-svg" viewBox="0 0 16 16">
+                            <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                        </svg>
+                        <p>Philosopher's Stone 2022 - Winner (Harry Potter award)</p>
+                    </div>
+
+                    <div class="container award-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="award-img" height="25" fill="currentColor" class="award-svg" viewBox="0 0 16 16">
+                            <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                        </svg>
+                        <p>Philosopher's Stone 2022 - Winner (Harry Potter award)</p>
+                    </div>
+
+                    <div class="container award-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="award-img" height="25" fill="currentColor" class="award-svg" viewBox="0 0 16 16">
+                            <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                        </svg>
+                        <p>Philosopher's Stone 2022 - Winner (Harry Potter award)</p>
+                    </div>
+
+                    <div class="container award-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="award-img" height="25" fill="currentColor" class="award-svg" viewBox="0 0 16 16">
+                            <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                        </svg>
+                        <p>Philosopher's Stone 2022 - Winner (Harry Potter award)</p>
+                    </div>
+            </section>
+        </div>
+        <section class="user-recommends">
+            <h2>
+                <p id="recommends-title">Other Top Minds (recommended by) </p>
+            </h2>
+            <div class="container other-profiles">
+                <div class="flex-row prof-card">
+                    <div class="recommend-card">
+                        <img src="./images/dr-strange.png" />
+                        <p class="recommend-name">Dr. Strange</p>
+                        <p class="recommend-specialty">Gamma Radiation Specialist</p>
+                    </div>
+                </div>
+                <div class="flex-row prof-card">
+                    <div class="recommend-card">
+                        <img class="recommend-img" src="./images/dr-banner.png" />
+                        <p class="recommend-name">Dr. Banner</p>
+                        <p class="recommend-specialty">Professor of Multi-verse Manipulation</p>
+                    </div>
+                </div>
+                <div class="flex-row prof-card">
+                    <div class="recommend-card">
+                        <img class="recommend-img" src="./images/dr-strange.png" />
+                        <p class="recommend-name">Dr. Strange</p>
+                        <p class="recommend-specialty">Professor of Multi-verse Manipulation</p>
+                    </div>
+                </div>
+                <div class="flex-row prof-card">
+                    <div class="recommend-card">
+                        <img class="recommend-img" src="./images/dr-strange.png" />
+                        <p class="recommend-name">Dr. Strange</p>
+                        <p class="recommend-specialty">Professor of Multi-verse Manipulation</p>
+                    </div>
+                </div>
+                <div class="flex-row prof-card">
+                    <div class="recommend-card">
+                        <img class="recommend-img" src="./images/dr-strange.png" />
+                        <p class="recommend-name">Dr. Strange</p>
+                        <p class="recommend-specialty">Professor of Multi-verse Manipulation</p>
+                    </div>
+                </div>
+                <div class="flex-row prof-card">
+                    <div class="recommend-card">
+                        <img class="recommend-img" src="./images/dr-strange.png" />
+                        <p class="recommend-name">Dr. Strange</p>
+                        <p class="recommend-specialty">Professor of Multi-verse Manipulation</p>
+                    </div>
+                </div>
+                <div class="flex-row prof-card">
+                    <div class="recommend-card">
+                        <img class="recommend-img" src="./images/dr-strange.png" />
+                        <p class="recommend-name">Dr. Strange</p>
+                        <p class="recommend-specialty">Professor of Multi-verse Manipulation</p>
+                    </div>
+                </div>
+                <div class="flex-row prof-card">
+                    <div class="recommend-card">
+                        <img class="recommend-img" src="./images/dr-strange.png" />
+                        <p class="recommend-name">Dr. Strange</p>
+                        <p class="recommend-specialty">Professor of Multi-verse Manipulation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="branch-hierarchy">
+            <h2>
+                Scientific Branches:
+            </h2>
+            <div class="flex-row hierarchy">
+                <div class="container hier-row1">
+                    <div class="hier-card">
+                        <p>Multi-verse Theory</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                </div>
+
+                <div class="container hier-row2">
+                    <div class="hier-card">
+                        <p>Real Matter</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                    <div class="hier-card">
+                        <p>Anti-matter</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                </div>
+
+                <div class="container hier-row3">
+                    <div class="hier-card">
+                        <p>Exotic Matter</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                    <div class="hier-card">
+                        <p>Ordinary Matter</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                    <div class="hier-card">
+                        <p>Dark Matter</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                </div>
+
+                <div class="container hier-row4">
+                    <div class="hier-card">
+                        <p>Black Holes</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                    <div class="hier-card">
+                        <p>Tornadoes</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                    <div class="hier-card">
+                        <p>Quasars</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                    <div class="hier-card">
+                        <p>Portals</p>
+                        <img src="./images/bracket.png" />
+                    </div>
+                </div>
+
+                <div class="container hier-row5">
+                    <div class="hier-card">
+                        <p>Gamma Radiation</p>
+                    </div>
+                    <div class="hier-card">
+                        <p>Event Horizons</p>
+                    </div>
+                    <div class="hier-card">
+                        <p>Supernovas</p>
+                    </div>
+                    <div class="hier-card">
+                        <p>Space-Time</p>
+                    </div>
+                    <div class="hier-card">
+                        <p>Big Bang Theory</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <footer>
+            Footer
+        </footer>
+    
+</body>
+</html>
