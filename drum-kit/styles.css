@@ -62,6 +62,10 @@ footer {
   color: red;
 }
 
+.navy {
+  color: lightblue;
+}
+
 .drum {
   outline: none;
   border: 10px solid #404B69;
