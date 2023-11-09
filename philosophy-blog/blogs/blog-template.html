@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="/docs/5.3/assets/js/color-modes.js"></script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.118.2">
+        <title>Derek Chisholm's Blog</title>
+    
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
+    
+        
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    
+    <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+        <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#712cf9">
+    
+    
+        <style>
+          .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+          }
+    
+          @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+              font-size: 3.5rem;
+            }
+          }
+    
+          .b-example-divider {
+            width: 100%;
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+          }
+    
+          .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+          }
+    
+          .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+          }
+    
+          .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+          }
+    
+          .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+          }
+    
+          .btn-bd-primary {
+            --bd-violet-bg: #712cf9;
+            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+    
+            --bs-btn-font-weight: 600;
+            --bs-btn-color: var(--bs-white);
+            --bs-btn-bg: var(--bd-violet-bg);
+            --bs-btn-border-color: var(--bd-violet-bg);
+            --bs-btn-hover-color: var(--bs-white);
+            --bs-btn-hover-bg: #6528e0;
+            --bs-btn-hover-border-color: #6528e0;
+            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+            --bs-btn-active-color: var(--bs-btn-hover-color);
+            --bs-btn-active-bg: #5a23c8;
+            --bs-btn-active-border-color: #5a23c8;
+          }
+    
+          .bd-mode-toggle {
+            z-index: 1500;
+          }
+    
+          .bd-mode-toggle .dropdown-menu .active .bi {
+            display: block !important;
+          }
+
+          #headline {
+            animation: fadeInAnimation ease 1.75s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-author {
+            animation: fadeInAnimation ease 1.5s;
+            opacity: 0%;
+            animation-delay: 0.5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-tagline {
+            animation: fadeInAnimation ease 1.5s;
+            opacity: 0%;
+            animation-delay: 1.2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-img {
+            animation: fadeInAnimation ease 1.75s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+            background-image: url('../assets/images/cleanthes.png');
+            background-size: 43%;
+            background-repeat: no-repeat;
+            align-items: right;
+          }
+
+          @keyframes fadeInAnimation {
+                0% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
+          #WIP {
+            background-color: rgb(255, 251, 34);
+            color: rgb(245, 12, 12);
+          }
+        </style>
+    
+        
+        <!-- Custom styles for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900&amp;display=swap" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="blog.css" rel="stylesheet">
+        <script src="./main.js" type="text/javascript"></script>
+      </head>
+    <body>
+
+        <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+            <div class="container-fluid">
+              <a href="../index.html" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>Derek Chisholm - Full Stack Engineer</strong>
+              </a>
+              <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+    
+              <div class="navbar-collapse collapse" id="navbarsExample01" style="">
+                <ul class="navbar-nav me-auto mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./philosophy-blog/index.html">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <form role="search">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                </form>
+              </div>
+            </div>
+          </nav>
+          
+          <div class="container-fluid m-0 p-0">
+            <div class="row">
+            <div class="col-2">
+                <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="height: 88vh;">
+                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                    <span class="fs-4">Sidebar</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link active" aria-current="page">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                        Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                        Orders
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                        Products
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                        Customers
+                        </a>
+                    </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong>mdo</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" style="">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="my-3 mx-5">
+                <h2 class="text-center">On Temperence</h2>
+                <hr>
+                <p>
+                    Hi! Bacon ipsum dolor amet ball tip t-bone porchetta, chuck jowl sausage buffalo short loin picanha prosciutto alcatra shank fatback corned beef. Kevin pastrami ribeye tongue meatloaf. Shank sirloin corned beef tri-tip short loin, ball tip pork t-bone alcatra flank turkey short ribs shoulder. Flank landjaeger ball tip short loin picanha pig ham hock venison tail shoulder chislic turducken frankfurter ham. Chislic pig capicola spare ribs.</p>
+
+                    <p>Kevin spare ribs pancetta, pork chop ball tip strip steak short ribs beef ribs hamburger rump bresaola burgdoggen ribeye. Cow porchetta pork shoulder ground round rump pancetta. T-bone chuck cupim beef, venison ball tip doner frankfurter ham short loin. Spare ribs corned beef ground round meatball shank beef ribs.</p>
+                    
+                    <p>Prosciutto alcatra ribeye, spare ribs pork loin boudin shoulder meatball short ribs. Kevin turkey chicken flank venison tongue short loin frankfurter pig, bacon sausage jowl. Pork loin andouille kevin bresaola spare ribs shoulder biltong short ribs rump doner frankfurter strip steak porchetta corned beef chuck. Rump cupim landjaeger hamburger. Ground round jowl tri-tip ribeye brisket spare ribs.</p>
+                    
+                    <p>Meatball biltong jerky, turducken boudin turkey salami. Pork chop meatball tongue sausage strip steak shankle biltong t-bone tri-tip turkey. Salami beef spare ribs pig short ribs sirloin landjaeger jowl. T-bone ham hock kevin, jerky beef ribs tri-tip porchetta kielbasa buffalo meatball rump boudin leberkas. Jerky pig pastrami ground round andouille bresaola chislic ball tip boudin hamburger biltong. Spare ribs pork belly landjaeger jerky brisket flank shank. Alcatra boudin ham hock cow, biltong rump jowl pancetta brisket.</p>
+                    
+                    <p>Andouille tail shank prosciutto hamburger t-bone. Burgdoggen turducken chislic kielbasa tail prosciutto. Porchetta prosciutto shoulder tenderloin venison kielbasa ham hock. Andouille corned beef pig sirloin, pastrami prosciutto meatloaf tri-tip frankfurter cow ham capicola leberkas doner. Burgdoggen shank tenderloin, tongue porchetta ribeye frankfurter brisket leberkas turducken cupim tri-tip bacon swine. Flank venison sausage, shankle leberkas ball tip picanha meatball.</p>
+                    
+                    <p>Capicola strip steak drumstick shoulder, chicken fatback flank meatball shank. Tail burgdoggen ham landjaeger, hamburger tenderloin ball tip. Ground round bresaola ball tip boudin leberkas bacon brisket jerky hamburger frankfurter andouille ham swine. Jowl andouille salami beef shoulder buffalo pork tail picanha chislic.</p>
+                    
+                    <p>Alcatra short ribs chislic doner porchetta tenderloin salami turkey buffalo tongue pork. Chislic chuck pork loin spare ribs drumstick shankle swine tongue meatball ball tip landjaeger meatloaf turducken. Chislic alcatra kielbasa buffalo pork loin short loin bresaola chuck fatback andouille salami rump pork belly pastrami tenderloin. Venison shank hamburger landjaeger shankle bacon turducken chuck ham pork beef ribs. Ham hock t-bone filet mignon frankfurter landjaeger bacon swine short loin buffalo spare ribs brisket fatback.</p>
+                    
+                    <p>Jerky t-bone beef chislic meatball pastrami. Biltong meatball venison salami shank alcatra jerky chislic pork chop pork belly boudin frankfurter doner pastrami. Venison cupim beef ribs, landjaeger turducken boudin alcatra meatloaf pork rump sirloin corned beef strip steak. Ground round shankle ham, tenderloin frankfurter salami flank brisket.</p>
+                    
+                    <p>Ground round tri-tip bresaola shoulder flank pork chop filet mignon. Landjaeger burgdoggen pork andouille. Meatball turducken flank spare ribs. Beef ribs swine turkey, ham short loin t-bone shoulder corned beef rump.</p>
+                    
+                    <p>Turkey spare ribs ribeye venison picanha. Chuck cupim rump buffalo bacon boudin flank, meatball tenderloin turkey shank. Shankle ribeye beef ribs rump. Filet mignon frankfurter spare ribs ball tip, jowl pastrami ground round. Kevin landjaeger frankfurter pancetta boudin strip steak ground round sirloin swine short ribs bresaola alcatra flank. Pork belly pork chop bacon short ribs, sirloin tongue spare ribs kevin corned beef. Alcatra pancetta brisket hamburger, fatback drumstick doner shoulder pastrami.</p>
+                    
+                    <p>Turducken tri-tip chuck jowl bresaola burgdoggen boudin filet mignon. Porchetta frankfurter pastrami kielbasa bacon. Meatball burgdoggen swine, ground round leberkas short loin cow cupim porchetta pastrami fatback bacon tongue. Frankfurter porchetta burgdoggen buffalo, tail sausage hamburger landjaeger.</p>
+                    
+                    <p>Doner chicken rump sausage fatback shankle cow pork belly turkey ball tip. Corned beef kielbasa pork chop, chislic capicola salami tri-tip porchetta rump. Kielbasa andouille landjaeger, jerky brisket cupim pig. Doner hamburger pancetta, landjaeger biltong chicken boudin rump beef ribs turkey bresaola drumstick fatback meatloaf. Turducken venison jowl shankle pancetta chicken. Pork loin kevin picanha capicola short ribs frankfurter buffalo boudin pork chop pancetta pastrami alcatra cupim drumstick. Andouille turducken filet mignon chislic pork sirloin salami doner rump.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-light" style="height: 88vh;">
+                <!-- <a href="/" class="d-flex align-items-center text-black text-decoration-none"> -->
+                <!-- <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg> -->
+                <p class="text-center fs-6 pt-3">Other Relevant Posts</p>
+                </a>
+                <hr>
+                <ul>
+                    <li>
+                        <a href="./on-ego.html">On Ego</a>
+                    </li>
+                </ul>
+        </div>
+        
+    </div>
+
+    <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+      <p>© 2023 by Derek Chisholm.</p>
+    <p class="mb-0">
+        <a href="#">Back to top</a>
+    </p>
+    </footer>
+    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        
+
+    </body>
+</html>

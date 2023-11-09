@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="/docs/5.3/assets/js/color-modes.js"></script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.118.2">
+        <title>Derek Chisholm's Blog</title>
+    
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
+    
+        
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    
+    <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+        <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#712cf9">
+    
+    
+        <style>
+          .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+          }
+    
+          @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+              font-size: 3.5rem;
+            }
+          }
+    
+          .b-example-divider {
+            width: 100%;
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+          }
+    
+          .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+          }
+    
+          .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+          }
+    
+          .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+          }
+    
+          .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+          }
+    
+          .btn-bd-primary {
+            --bd-violet-bg: #712cf9;
+            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+    
+            --bs-btn-font-weight: 600;
+            --bs-btn-color: var(--bs-white);
+            --bs-btn-bg: var(--bd-violet-bg);
+            --bs-btn-border-color: var(--bd-violet-bg);
+            --bs-btn-hover-color: var(--bs-white);
+            --bs-btn-hover-bg: #6528e0;
+            --bs-btn-hover-border-color: #6528e0;
+            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+            --bs-btn-active-color: var(--bs-btn-hover-color);
+            --bs-btn-active-bg: #5a23c8;
+            --bs-btn-active-border-color: #5a23c8;
+          }
+    
+          .bd-mode-toggle {
+            z-index: 1500;
+          }
+    
+          .bd-mode-toggle .dropdown-menu .active .bi {
+            display: block !important;
+          }
+
+          #headline {
+            animation: fadeInAnimation ease 1.75s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-author {
+            animation: fadeInAnimation ease 1.5s;
+            opacity: 0%;
+            animation-delay: 0.5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-tagline {
+            animation: fadeInAnimation ease 1.5s;
+            opacity: 0%;
+            animation-delay: 1.2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-img {
+            animation: fadeInAnimation ease 1.75s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+            background-image: url('../assets/images/cleanthes.png');
+            background-size: 43%;
+            background-repeat: no-repeat;
+            align-items: right;
+          }
+
+          @keyframes fadeInAnimation {
+                0% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
+          #WIP {
+            background-color: rgb(255, 251, 34);
+            color: rgb(245, 12, 12);
+          }
+        </style>
+    
+        
+        <!-- Custom styles for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900&amp;display=swap" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="blog.css" rel="stylesheet">
+        <script src="./main.js" type="text/javascript"></script>
+      </head>
+    <body>
+
+        <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+            <div class="container-fluid">
+              <a href="../index.html" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>Derek Chisholm - Full Stack Engineer</strong>
+              </a>
+              <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+    
+              <div class="navbar-collapse collapse" id="navbarsExample01" style="">
+                <ul class="navbar-nav me-auto mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./philosophy-blog/index.html">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <form role="search">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                </form>
+              </div>
+            </div>
+          </nav>
+          
+          <div class="container-fluid m-0 p-0">
+            <div class="row">
+            <div class="col-2">
+                <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="height: 88vh;">
+                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                    <span class="fs-4">Sidebar</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link active" aria-current="page">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                        Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                        Orders
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                        Products
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                        Customers
+                        </a>
+                    </li>
+                    </ul>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="my-3 mx-5">
+                <h2 class="text-center">On Ego</h2>
+                <hr>
+                <p class="blog-post-meta fst-italic text-end">September 29, 2023 by Derek C.</p>
+
+            <p>A quick definition for ego is “a person's sense of self-importance”, but one sentence is unsatisfactory in defining how it completely focuses our attention on what we perceive as important versus what is truly worthy of our attention.</p>
+
+            <p>The ego is responsible for feeding us the idea that “What I want/need is the most important.” And why shouldn’t we think this way? Logically speaking, you are experiencing life as one entity, not two, and you require food, water, and safety. The ego enables us to put our needs ahead of others in order to survive, but it appears the ego continues to endure when the need for survival has become easier to fulfill.</p>
+              
+            <p>Today, our egos go so far as to create social media Reddit groups like ‘r/ImTheMainCharacter’ showcasing poor judgment of people that can’t see beyond their own ego, and our egos can bully others online at a lethal. One person’s ego can take down another’s for being less than the ideal image of beauty, intelligence, or physical fitness in our world. The ego leads us to the irrational notion that “I am the most important, most significant being”, but relative to yourself and your individual journey through life, you are.</p>
+              
+            <p>Our egos have become inflated to the point where we want to publicly compare our ego with an individual or group of other ego(s). We have the ability to broadcast our egos to anyone connected to the internet. While there is good to this interconnectivity, it appears to be meant for opportunists.</p>
+              
+            <p>Even now, as I write this, I’m hoping you’ll read this and agree with my way of thinking. I won’t be deterred or undeterred from whether this has a million views or zero, but the internet gives me the opportunity to share my philosophy with you, but for what purpose?</p>
+              
+            <p>In my case, I am doing all I can to subdue my ego as it has brought me nothing but disillusionment and pain. Material possessions don’t bring me as much joy as experience. My hope is that forgoing my own ego will teach me what I truly enjoy in life, and not how I can showcase how important my ego is to another ego.</p>
+              
+            <p>Forgoing the ego favors all mankind instead of scoffing at the idea that ‘I am better than you and here are the reasons why’. Any outside individual’s experience is valuable to the self as long as there is something to be learned from it. If it is a tempered examination of an event that showcases good judgment and sound reasoning, it is valuable knowledge to share. Even if it is unreasonable, if the listener understands the essence of why the experience is worth noting, it is a valuable conversation to have. </p>
+              
+            <p>When you are convinced you have learned all your lessons in life you are letting your ego take root and disregarding reason and experience. There is always something to be learned, and complacency is the death of the aspiring man. Complacency in itself is not a bad thing, per se, but an individual that feels they have more to contribute should not become complacent. Fighting complacency is hard when the evidence in front of you proves unfair and illogical, but remaining true to your convictions is a much more noble pursuit. Consistency in life will win out, but altering yourself will create a different reality than you intended. The alternative to fighting is to forfeit the battle of rationality vs. ego, and become entirely ego.</p>
+              
+            <p>Ego serves some people well, but I propose that those people are not fulfilled in their life’s work. I feel most fulfilled when I complete mundane tasks like landscaping, paying off debt, completing a work project, or learning a piano song from start to finish. My ego wants me to relax on the couch and watch television because it’s easy, but in the end I am left with anxiety because I still need to perform the task I gave up on. It was unreasonable to push off the task and sit down when I hadn’t completed a reasonable amount of work first.</p>
+              
+            <p>This is not to say I’m unfulfilled by sitting down and watching television, but everyone has the innate ability to “just know” this fact. Your ego will “take” a break, and your rational mind will “deserve” a break. It is in this realm of what is “deserved” that you will find peace. The sweat off your brow is deserved through hard work, as is the quenching drink of water that comes after hard labor.</p>
+              
+            <p>So what is the ego? It is the means by which we have put ourselves above others, and it has no purpose in my life. One could argue that it’s important for competition, the belief in yourself and your own abilities, but the truth is that these are not areas that require ego.</p>
+              
+            <p>Ego involves your own self-importance and is not necessary for demonstrating your abilities to other people. If you and another person are asked to solve a mathematical equation like 2 * 8 /19 * 42 and the other person solves it faster, there are no amount of words from the ego that can convince a person you did it faster. In running a sprint, if you cross the line second, you cannot convince someone else that you did it first. You were bested by someone else. Use it as ammunition to make yourself better and beat them next time.</p>
+              
+            <p>Do you need your ego? That is up to you, but I choose to lead by example and am attempting to forego my ego to serve myself and others better than I ever have before.</p>
+              </p>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-light" style="height: 88vh;">
+                <!-- <a href="/" class="d-flex align-items-center text-black text-decoration-none"> -->
+                <!-- <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg> -->
+                <p class="text-center fs-6 pt-3">Other Relevant Posts</p>
+                </a>
+                <hr>
+                <ul>
+                    <li>
+                        <a href="./on-routine.html">On Routine</a>
+                    </li>
+                </ul>
+        </div>
+        
+    </div>
+
+    <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+      <p>© 2023 by Derek Chisholm.</p>
+    <p class="mb-0">
+        <a href="#">Back to top</a>
+    </p>
+    </footer>
+    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        
+
+    </body>
+</html>
