@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="/docs/5.3/assets/js/color-modes.js"></script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.118.2">
+        <title>Derek Chisholm's Blog</title>
+    
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
+    
+        
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    
+    <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+        <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#712cf9">
+    
+    
+        <style>
+          .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+          }
+    
+          @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+              font-size: 3.5rem;
+            }
+          }
+    
+          .b-example-divider {
+            width: 100%;
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+          }
+    
+          .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+          }
+    
+          .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+          }
+    
+          .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+          }
+    
+          .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+          }
+    
+          .btn-bd-primary {
+            --bd-violet-bg: #712cf9;
+            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+    
+            --bs-btn-font-weight: 600;
+            --bs-btn-color: var(--bs-white);
+            --bs-btn-bg: var(--bd-violet-bg);
+            --bs-btn-border-color: var(--bd-violet-bg);
+            --bs-btn-hover-color: var(--bs-white);
+            --bs-btn-hover-bg: #6528e0;
+            --bs-btn-hover-border-color: #6528e0;
+            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+            --bs-btn-active-color: var(--bs-btn-hover-color);
+            --bs-btn-active-bg: #5a23c8;
+            --bs-btn-active-border-color: #5a23c8;
+          }
+    
+          .bd-mode-toggle {
+            z-index: 1500;
+          }
+    
+          .bd-mode-toggle .dropdown-menu .active .bi {
+            display: block !important;
+          }
+
+          #headline {
+            animation: fadeInAnimation ease 1.75s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-author {
+            animation: fadeInAnimation ease 1.5s;
+            opacity: 0%;
+            animation-delay: 0.5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-tagline {
+            animation: fadeInAnimation ease 1.5s;
+            opacity: 0%;
+            animation-delay: 1.2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
+          #headline-img {
+            animation: fadeInAnimation ease 1.75s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+            background-image: url('../assets/images/cleanthes.png');
+            background-size: 43%;
+            background-repeat: no-repeat;
+            align-items: right;
+          }
+
+          @keyframes fadeInAnimation {
+                0% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
+          #WIP {
+            background-color: rgb(255, 251, 34);
+            color: rgb(245, 12, 12);
+          }
+        </style>
+    
+        
+        <!-- Custom styles for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900&amp;display=swap" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="blog.css" rel="stylesheet">
+      </head>
+    <body>
+
+        <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+            <div class="container-fluid">
+              <a href="../index.html" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>Derek Chisholm - Full Stack Engineer</strong>
+              </a>
+              <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+    
+              <div class="navbar-collapse collapse" id="navbarsExample01" style="">
+                <ul class="navbar-nav me-auto mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./philosophy-blog/index.html">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <form role="search">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                </form>
+              </div>
+            </div>
+          </nav>
+
+          <div class="text-center align-items-center m-1 p-5" id="WIP">
+            <h2>
+                Work in Progress!
+            </h2>
+          </div>
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="check2" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path>
+        </symbol>
+        <symbol id="circle-half" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+        </symbol>
+        <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path>
+            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"></path>
+        </symbol>
+        <symbol id="sun-fill" viewBox="0 0 16 16">
+            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path>
+        </symbol>
+        </svg>
+
+        <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+        <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (light)">
+            <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+            <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+            <li>
+            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light" aria-pressed="true">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+                Light
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+            </button>
+            </li>
+            <li>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+                Dark
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+            </button>
+            </li>
+            <li>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
+                Auto
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+            </button>
+            </li>
+        </ul>
+        </div>
+
+        
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="aperture" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path>
+    </symbol>
+    <symbol id="cart" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+    </symbol>
+    <symbol id="chevron-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+    </symbol>
+    </svg>
+
+    <div class="container">
+    <header class="border-bottom lh-1 py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+            <a class="link-secondary" href="#">Subscribe</a>
+        </div>
+        <div class="col-4 text-center">
+            <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Derek's Blog</a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+            <a class="link-secondary" href="#" aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg>
+            </a>
+            <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+        </div>
+        </div>
+    </header>
+
+    <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline justify-content-between">
+        <a class="nav-item nav-link link-body-emphasis active" href="#">Coding</a>
+        <a class="nav-item nav-link link-body-emphasis" href="#">Philosophy</a>
+        <a class="nav-item nav-link link-body-emphasis" href="#">Golf</a>
+        <a class="nav-item nav-link link-body-emphasis" href="#">Piano</a>
+        <a class="nav-item nav-link link-body-emphasis" href="#">Comedy</a>
+        <!-- <a class="nav-item nav-link link-body-emphasis" href="#">Culture</a> -->
+        <!-- <a class="nav-item nav-link link-body-emphasis" href="#">Business</a> -->
+        <!-- <a class="nav-item nav-link link-body-emphasis" href="#">Politics</a> -->
+        <!-- <a class="nav-item nav-link link-body-emphasis" href="#">Opinion</a> -->
+        <!-- <a class="nav-item nav-link link-body-emphasis" href="#">Science</a> -->
+        <!-- <a class="nav-item nav-link link-body-emphasis" href="#">Health</a> -->
+        <!-- <a class="nav-item nav-link link-body-emphasis" href="#">Style</a> -->
+        <!-- <a class="nav-item nav-link link-body-emphasis" href="#">Travel</a> -->
+        </nav>
+    </div>
+    </div>
+
+    <main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary" id="headline-img">
+        <!-- <img class="col-lg-4" src="../assets/images/cleanthes.png" /> -->
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-8">
+                <!-- <div class="col-lg-4">hello!</div> -->
+                <div class="col-lg-12 px-0">
+                    <h1 class="display-6 fst-italic px-5" id="headline">"Obstacles and limitations — if responded to properly — create opportunities for beauty and excellence."</h1>
+                    <h2 class="display-6 fst-italic text-end" id="headline-author"><b>-Cleanthes</b></h2>
+                </div>
+                <div class="col-lg-12 px-0">
+                    <p class="lead mt-5 text-center" id="headline-tagline">Adversity is a chance to hold fast to your convictions, <br>therein you will find your own strength.</p>
+                    <!-- <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p> -->
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <div class="container my-5">
+        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-sm">
+          <div class="col-lg-12 p-3 p-lg-5 pt-lg-1">
+            <h3 class="display-5 fst-normal lh-1 text-body-emphasis pb-2">Tech layoffs and stagnation.</h3>
+            <p><small>Updated 11/8/2023 by Derek Chisholm</small></p>
+            <p class="lead">
+              After a radical shift in the tech industry in 2023, it's back to the drawing board for me. I will be writing more often, 
+              updating my developer portfolio, and deepening my understanding of code to stay sharp. For now, I choose to respond properly to this moment,
+              and give myself the opportunity to grow in excellence.
+            </p>
+            <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+              <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Primary</button>
+              <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+            </div> -->
+          </div>
+          <!-- <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg"> -->
+              <!-- <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720">
+          </div> -->
+        </div>
+      </div>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary-emphasis">Philosophy</strong>
+            <h3 class="mb-0">On Ego</h3>
+            <div class="mb-1 text-body-secondary">Sept 29</div>
+            <p class="card-text mb-auto">In a world where opinion and fact are becoming one and the same, how do we move away from the ego?</p>
+            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+                <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+            <!-- <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+            <img class="bd-placeholder-img" width="200" height="250" src="../assets/images/ego.jpg">
+            </div>
+        </div>
+        </div>
+        <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
+            <h3 class="mb-0">Post title</h3>
+            <div class="mb-1 text-body-secondary">Nov 11</div>
+            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+                <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-md-8">
+        <h3 class="pb-4 mb-4 fst-italic border-bottom">
+            The Focal Point
+        </h3>
+
+        <article class="blog-post">
+            <h2 class="display-5 link-body-emphasis mb-1">On Ego</h2>
+            <p class="blog-post-meta">September 29, 2023 by <a href="#">Derek</a></p>
+
+            <p>A quick definition for ego is “a person's sense of self-importance”, but one sentence is unsatisfactory in defining how it completely focuses our attention on what we perceive as important versus what is truly worthy of our attention.</p>
+
+            <p>The ego is responsible for feeding us the idea that “What I want/need is the most important.” And why shouldn’t we think this way? Logically speaking, you are experiencing life as one entity, not two, and you require food, water, and safety. The ego enables us to put our needs ahead of others in order to survive, but it appears the ego continues to endure when the need for survival has become easier to fulfill.</p>
+              
+            <p>Today, our egos go so far as to create social media Reddit groups like ‘r/ImTheMainCharacter’ showcasing poor judgment of people that can’t see beyond their own ego, and our egos can bully others online at a lethal. One person’s ego can take down another’s for being less than the ideal image of beauty, intelligence, or physical fitness in our world. The ego leads us to the irrational notion that “I am the most important, most significant being”, but relative to yourself and your individual journey through life, you are.</p>
+              
+            <p>Our egos have become inflated to the point where we want to publicly compare our ego with an individual or group of other ego(s). We have the ability to broadcast our egos to anyone connected to the internet. While there is good to this interconnectivity, it appears to be meant for opportunists.</p>
+              
+            <p>Even now, as I write this, I’m hoping you’ll read this and agree with my way of thinking. I won’t be deterred or undeterred from whether this has a million views or zero, but the internet gives me the opportunity to share my philosophy with you, but for what purpose?</p>
+              
+            <p>In my case, I am doing all I can to subdue my ego as it has brought me nothing but disillusionment and pain. Material possessions don’t bring me as much joy as experience. My hope is that forgoing my own ego will teach me what I truly enjoy in life, and not how I can showcase how important my ego is to another ego.</p>
+              
+            <p>Forgoing the ego favors all mankind instead of scoffing at the idea that ‘I am better than you and here are the reasons why’. Any outside individual’s experience is valuable to the self as long as there is something to be learned from it. If it is a tempered examination of an event that showcases good judgment and sound reasoning, it is valuable knowledge to share. Even if it is unreasonable, if the listener understands the essence of why the experience is worth noting, it is a valuable conversation to have. </p>
+              
+            <p>When you are convinced you have learned all your lessons in life you are letting your ego take root and disregarding reason and experience. There is always something to be learned, and complacency is the death of the aspiring man. Complacency in itself is not a bad thing, per se, but an individual that feels they have more to contribute should not become complacent. Fighting complacency is hard when the evidence in front of you proves unfair and illogical, but remaining true to your convictions is a much more noble pursuit. Consistency in life will win out, but altering yourself will create a different reality than you intended. The alternative to fighting is to forfeit the battle of rationality vs. ego, and become entirely ego.</p>
+              
+            <p>Ego serves some people well, but I propose that those people are not fulfilled in their life’s work. I feel most fulfilled when I complete mundane tasks like landscaping, paying off debt, completing a work project, or learning a piano song from start to finish. My ego wants me to relax on the couch and watch television because it’s easy, but in the end I am left with anxiety because I still need to perform the task I gave up on. It was unreasonable to push off the task and sit down when I hadn’t completed a reasonable amount of work first.</p>
+              
+            <p>This is not to say I’m unfulfilled by sitting down and watching television, but everyone has the innate ability to “just know” this fact. Your ego will “take” a break, and your rational mind will “deserve” a break. It is in this realm of what is “deserved” that you will find peace. The sweat off your brow is deserved through hard work, as is the quenching drink of water that comes after hard labor.</p>
+              
+            <p>So what is the ego? It is the means by which we have put ourselves above others, and it has no purpose in my life. One could argue that it’s important for competition, the belief in yourself and your own abilities, but the truth is that these are not areas that require ego.</p>
+              
+            <p>Ego involves your own self-importance and is not necessary for demonstrating your abilities to other people. If you and another person are asked to solve a mathematical equation like 2 * 8 /19 * 42 and the other person solves it faster, there are no amount of words from the ego that can convince a person you did it faster. In running a sprint, if you cross the line second, you cannot convince someone else that you did it first. You were bested by someone else. Use it as ammunition to make yourself better and beat them next time.</p>
+              
+            <p>Do you need your ego? That is up to you, but I choose to lead by example and am attempting to forego my ego to serve myself and others better than I ever have before.</p>
+              </p>
+            
+            <!-- <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, lists, tables, images, code, and more are all supported as expected.</p>
+            <hr>
+            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+            <h2>Blockquotes</h2>
+            <p>This is an example blockquote in action:</p>
+            <blockquote class="blockquote">
+            <p>Quoted text goes here.</p>
+            </blockquote>
+            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+            <h3>Example lists</h3>
+            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout. This is an example unordered list:</p>
+            <ul>
+            <li>First list item</li>
+            <li>Second list item with a longer description</li>
+            <li>Third list item to close it out</li>
+            </ul>
+            <p>And this is an ordered list:</p>
+            <ol>
+            <li>First list item</li>
+            <li>Second list item with a longer description</li>
+            <li>Third list item to close it out</li>
+            </ol>
+            <p>And this is a definition list:</p>
+            <dl>
+            <dt>HyperText Markup Language (HTML)</dt>
+            <dd>The language used to describe and define the content of a Web page</dd>
+            <dt>Cascading Style Sheets (CSS)</dt>
+            <dd>Used to describe the appearance of Web content</dd>
+            <dt>JavaScript (JS)</dt>
+            <dd>The programming language used to build advanced Web sites and applications</dd>
+            </dl>
+            <h2>Inline HTML elements</h2>
+            <p>HTML defines a long list of available inline tags, a complete list of which can be found on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">Mozilla Developer Network</a>.</p>
+            <ul>
+            <li><strong>To bold text</strong>, use <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>.</li>
+            <li><em>To italicize text</em>, use <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>.</li>
+            <li>Abbreviations, like <abbr title="HyperText Markup Language">HTML</abbr> should use <code class="language-plaintext highlighter-rouge">&lt;abbr&gt;</code>, with an optional <code class="language-plaintext highlighter-rouge">title</code> attribute for the full phrase.</li>
+            <li>Citations, like <cite>— Mark Otto</cite>, should use <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>.</li>
+            <li><del>Deleted</del> text should use <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> and <ins>inserted</ins> text should use <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code>.</li>
+            <li>Superscript <sup>text</sup> uses <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code> and subscript <sub>text</sub> uses <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code>.</li>
+            </ul>
+            <p>Most of these elements are styled by browsers with few modifications on our part.</p>
+            <h2>Heading</h2>
+            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+            <h3>Sub-heading</h3>
+            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+            <pre><code>Example code block</code></pre>
+            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p> -->
+        </article>
+
+        <!-- <article class="blog-post">
+            <h2 class="display-5 link-body-emphasis mb-1">Another blog post</h2>
+            <p class="blog-post-meta">December 23, 2020 by <a href="#">Jacob</a></p>
+
+            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+            <blockquote>
+            <p>Longer quote goes here, maybe with some <strong>emphasized text</strong> in the middle of it.</p>
+            </blockquote>
+            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+            <h3>Example table</h3>
+            <p>And don't forget about tables in these posts:</p>
+            <table class="table">
+            <thead>
+                <tr>
+                <th>Name</th>
+                <th>Upvotes</th>
+                <th>Downvotes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>Alice</td>
+                <td>10</td>
+                <td>11</td>
+                </tr>
+                <tr>
+                <td>Bob</td>
+                <td>4</td>
+                <td>3</td>
+                </tr>
+                <tr>
+                <td>Charlie</td>
+                <td>7</td>
+                <td>9</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                <td>Totals</td>
+                <td>21</td>
+                <td>23</td>
+                </tr>
+            </tfoot>
+            </table>
+
+            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+        </article>
+
+        <article class="blog-post">
+            <h2 class="display-5 link-body-emphasis mb-1">New feature</h2>
+            <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
+
+            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+            <ul>
+            <li>First list item</li>
+            <li>Second list item with a longer description</li>
+            <li>Third list item to close it out</li>
+            </ul>
+            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+        </article> -->
+
+        <!-- <nav class="blog-pagination" aria-label="Pagination">
+            <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
+            <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
+        </nav> -->
+
+        </div>
+
+        <div class="col-md-4">
+        <div class="position-sticky" style="top: 2rem;">
+            <div class="p-4 mb-3 bg-body-tertiary rounded">
+            <h4 class="fst-italic">About</h4>
+            <p class="mb-0">Expression is an individual activity, but is often overshadowed by fear. This blog is a thought center for me, no matter how unpopular the opinion.</p>
+            </div>
+
+            <div>
+            <h4 class="fst-italic">Recent posts</h4>
+            <ul class="list-unstyled">
+                <li>
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+                    <div class="col-lg-8">
+                    <h6 class="mb-0">Example blog post title</h6>
+                    <small class="text-body-secondary">January 15, 2023</small>
+                    </div>
+                </a>
+                </li>
+                <li>
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+                    <div class="col-lg-8">
+                    <h6 class="mb-0">This is another blog post title</h6>
+                    <small class="text-body-secondary">January 14, 2023</small>
+                    </div>
+                </a>
+                </li>
+                <li>
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+                    <div class="col-lg-8">
+                    <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
+                    <small class="text-body-secondary">January 13, 2023</small>
+                    </div>
+                </a>
+                </li>
+            </ul>
+            </div>
+
+            <div class="p-4">
+            <h4 class="fst-italic">Archives</h4>
+            <ol class="list-unstyled mb-0">
+                <li><a href="#">March 2021</a></li>
+                <li><a href="#">February 2021</a></li>
+                <li><a href="#">January 2021</a></li>
+                <li><a href="#">December 2020</a></li>
+                <li><a href="#">November 2020</a></li>
+                <li><a href="#">October 2020</a></li>
+                <li><a href="#">September 2020</a></li>
+                <li><a href="#">August 2020</a></li>
+                <li><a href="#">July 2020</a></li>
+                <li><a href="#">June 2020</a></li>
+                <li><a href="#">May 2020</a></li>
+                <li><a href="#">April 2020</a></li>
+            </ol>
+            </div>
+
+            <div class="p-4">
+            <h4 class="fst-italic">Elsewhere</h4>
+            <ol class="list-unstyled">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+            </ol>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    </main>
+
+    <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p class="mb-0">
+        <a href="#">Back to top</a>
+    </p>
+    </footer>
+    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        
+
+    </body>
+</html>
