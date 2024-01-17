@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Derek Chisholm - Full Stack Engineer</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="./main.js" type="text/javascript" async></script>
 </head>
 <body>  
 
@@ -59,8 +60,8 @@
                   <a href="./philosophy-blog/index.html" class="btn btn-primary my-2">My Blog</a>
                   <a href="https://www.linkedin.com/in/dchisholm125/" class="btn btn-secondary my-2" target="_blank">My LinkedIn</a>
                   <a href="https://github.com/dchisholm125" class="btn btn-secondary my-2 pb-2" id="github" target="_blank">
-                    <img src="./assets/images/github-mark-white.png" height="20"></img>
-                    <img src="./assets/images/GitHub_Logo_White.png" height="20"></img>
+                    <img src="../assets/images/github-mark-white.png" height="20"></img>
+                    <img src="../assets/images/GitHub_Logo_White.png" height="20"></img>
                   </a>
                   <a href="../full-stack-portfolio/public/contact.html" class="btn btn-tertiary my-2 border-black fw-bold">Contact Me</a>
                 </p>
@@ -68,15 +69,116 @@
           </div>
         </section>
 
-        <div class="px-4 pt-5 text-center border-bottom bg-light">
-          <img src="./assets/images/dude-at-computer.png" class="mb-" alt="coding" height="75">
-          <h1 class="display-4 fw-bold text-body-emphasis">Front-End Feature Samples</h1>
+        <div class="px-4 pt-5 text-center align-items-center border-bottom bg-light">
+          <img src="../assets/images/chat-bubble.jpg" alt="coding" height="75">
+          <h1 class="display-4 fw-bold text-body-emphasis">Blog Preview Card</h1>
           <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">For the sake of demonstrating some common UI elements, I've included a page 
-              dedicated to specifically showcasing my ability to create them.
+
+            <p class="lead mb-4">This example allows you to completely customize a stylized blog card into whatever you want.
             </p>
-            <a href="./ui-features/index.html" class="btn btn-primary my-2 mb-4">Check them out!</a>
+
+            <div class="row justify-content-center"> 
+              <div class="col-6" id="blog-card">
+                <div>
+                  <img src="../assets/images/mondrian-preview.png" class="border rounded mx-3 my-3" height="115px" width="250px" id="blog-pic">
+                </div>
+
+                <div>
+                    <p class="text-left mx-3" id="blog-tag">Learning
+                </div>
+
+                <div>
+                  <p id="blog-pub">Published 21 Dec 2023</p>
+                </div>
+
+                <div>
+                  <h4 id="blog-title">Awesome Blog Post</h4>
+                </div>
+
+                <div>
+                  <p id="blog-desc">This is a blog description. It is ancient and magnificent, and you'll be well rewarded for reading its content.</p>
+                </div>
+
+                <div>
+                  <img src="../assets/images/jps.jpg" alt="Author Picture" height="40" width="40" id="author-pic"><i><strong>  Derek Chisholm</strong></i></img>
+                </div>
+
+              </div>
+            </div>
+
+            <a href="./ui-features/index.html" class="btn btn-primary my-2 mb-4">Update the card component!</a>
           </div>
+        </div>
+
+        <div class="px-4 pt-5 text-center align-items-center justify-content-center border-bottom" id="faq-container">
+          <img src="../assets/images/chat-bubble.jpg" alt="coding" height="75">
+          <h1 class="display-4 fw-bold text-body-emphasis">Accordion-style FAQ section</h1>
+          <div class="col-lg-6 mx-auto">
+            <h3 class="mb-4" style="font-color: hsl(284, 83%, 19%); font-weight: 400;">Dynamic expanding and reducing of HTML elements.
+            </h3>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-4 m-4" id="faq-accordion">
+              
+              <div class="row align-items-center accordion">
+                <div class="col-11">
+                  <h5>Why can't we all just get along?</h5>
+                </div>
+                <div class="col-1">
+                  <img src="../assets/images/purple-plus.jpg" height="35" width="35" class="faq-plus">
+                </div>
+              </div>
+              <p class="panel">It's not so much that we cannot get along, it's that we choose not to get along. Think about it: anyone can choose whether or not to hold something against someone. Choosing acceptance over intolerance is the key!</p>
+              <div class="row align-items-center accordion">
+                <div class="col-11">
+                  <h5>Why does everything taste like chicken?</h5>
+                </div>
+                <div class="col-1">
+                  <img src="../assets/images/purple-plus.jpg" height="35" width="35" class="faq-plus">
+                </div>
+              </div>
+              <p class="panel">Well, if <i>The Matrix (1999)</i> is to be believed, we're all living in a computer program and it seems like the machines that designed our sense of taste accidentally made everything taste like chicken. Maybe Tasty Wheat actually tastes like chicken? Or maybe Tasty Wheat actually tastes like bacon and is the single greatest flavor of all mankind --- but we'll never know while we're in a computer program.</p>
+              <div class="row align-items-center accordion">
+                <div class="col-11">
+                  <h5>Can you park a car in Harvard yard?</h5>
+                </div>
+                <div class="col-1">
+                  <img src="../assets/images/purple-plus.jpg" height="35" width="35" class="faq-plus">
+                </div>
+              </div>
+              <p class="panel">Harvard yard refers to the grassy area enclosed by fences with twenty-seven gates which is mainly a pedestrian area for students to access the freshman dormitory. While there are a few gates that allow vehicles to load/unload, parking on the grassy area is discouraged.</p>
+              <div class="row align-items-center accordion">
+                <div class="col-11">
+                  <h5>What is the meaning of life?</h5>
+                </div>
+                <div class="col-1">
+                  <img src="../assets/images/purple-plus.jpg" height="35" width="35" class="faq-plus">
+                </div>
+              </div>
+              <p class="panel">42. Next question.</p>
+              <div class="row align-items-center accordion">
+                <div class="col-11">
+                  <h5>How does one perform the perfect belly flop?</h5>
+                </div>
+                <div class="col-1">
+                  <img src="../assets/images/purple-plus.jpg" height="35" width="35" class="faq-plus">
+                </div>
+              </div>
+              <p class="panel">First, you must ensure that you are completely and utterly uncoordinated in your efforts. Flailing of the arms showcases true mastery. Most importantly, you must remember to land perfectly parallel to the water. The more surface area hitting the water's surface in unison, the larger the sound you'll make!</p>
+              <div class="row align-items-center accordion">
+                <div class="col-11">
+                  <h5>Seriously though, how was the FAQ accordion implemented?</h5>
+                </div>
+                <div class="col-1">
+                  <img src="../assets/images/purple-plus.jpg" height="35" width="35" class="faq-plus">
+                </div>
+              </div>
+              <p class="panel">This is done via standard HTML, CSS, and JavaScript and is fairly simple. It requires adding ':hover' to make the change of color on the buttons.</p>
+
+            </div>
+          </div>
+
         </div>
 
         <div class="px-4 pt-5 text-center border-bottom bg-light">
