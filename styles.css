@@ -75,8 +75,10 @@
   }
   
   .panel {
-    padding: 0 18px;
-    background-color: hsl(283, 100%, 88%);
+    padding: 15px 25px 15px 25px;
+    background-color: hsl(283, 100%, 94%);
+    border-radius: 8px;
+    margin: 15px 13px 15px 0;
     font-color: hsl(284, 83%, 19%);
     display: none;
     overflow: hidden;
