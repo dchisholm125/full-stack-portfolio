@@ -1,0 +1,10 @@
+[2026-03-25 10:29:21] Published blog post: sample-first-post.md
+[2026-03-25 10:29:21] Moved from: vue-app/content/staged/sample-first-post.md
+[2026-03-25 10:29:21] Moved to: vue-app/content/blog/sample-first-post.md
+[2026-03-25 10:29:45] Staged directory is empty - no posts to publish
+[2026-03-25 10:29:54] Published blog post: sample-first-post.md
+[2026-03-25 10:29:54] Moved from: vue-app/content/staged/sample-first-post.md
+[2026-03-25 10:29:54] Moved to: vue-app/content/blog/sample-first-post.md
+[2026-03-25 10:35:26] Published blog post: why-i-prefer-open-claw-over-other-coding-assistants.md
+[2026-03-25 10:35:26] Moved from: vue-app/content/staged/why-i-prefer-open-claw-over-other-coding-assistants.md
+[2026-03-25 10:35:26] Moved to: vue-app/content/blog/why-i-prefer-open-claw-over-other-coding-assistants.md
