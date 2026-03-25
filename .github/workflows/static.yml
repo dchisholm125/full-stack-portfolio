@@ -32,9 +32,11 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
+        working-directory: vue-app
         run: npm install
 
       - name: Build project
+        working-directory: vue-app
         run: npm run build
       # --- NEW STEPS END HERE ---
 
@@ -45,7 +47,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # UPDATED: Point this to your build output folder
-          path: './dist' 
+          path: './vue-app/dist' 
 
       - name: Deploy to GitHub Pages
         id: deployment
