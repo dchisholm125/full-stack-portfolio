@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div>
+  <DefaultLayout>
+    <RouterView />
+  </DefaultLayout>
 </template>
 
-<script>
-import '~/assets/styles.css'
+<script setup lang="ts">
+import DefaultLayout from './layouts/default.vue'
 </script>
