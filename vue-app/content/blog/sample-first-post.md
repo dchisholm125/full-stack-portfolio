@@ -1,7 +1,7 @@
 ---
 title: "My Journey Building a Full-Stack Portfolio"
 description: "How I went from a simple HTML page to a interactive showcase of my development skills."
-date: 2026-03-25
+date: 2026-03-22
 tags: ["Portfolio", "Web Development", "Career Growth"]
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "Why I Prefer OpenClaw Over Other Coding Assistants"
+title: "Why I Prefer OpenClaw Over Other Coding Assistants --- and its limits"
 description: "My honest experience with Claude, Gemini, ChatGPT, Ollama, and why OpenClaw/Vox has become my go-to coding companion."
 date: 2026-03-25
 tags: ["Coding Assistants", "LLMs", "AI Tools", "OpenClaw", "Developer Productivity"]
