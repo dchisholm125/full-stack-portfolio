@@ -2,6 +2,7 @@
 title: The Predatory Truth
 description: When a threat-assessment region trained on Grimm fairy tales develops a coherent worldview of teeth and claws.
 date: 2026-03-24
+tags: ["Psychology", "Ethics", "AI"]
 ---
 
 # The Predatory Truth

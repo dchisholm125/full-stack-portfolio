@@ -2,6 +2,7 @@
 title: The Methodology Going Forward
 description: Every experiment follows the same structure — and the interesting part about what changed.
 date: 2026-03-24
+tags: ["Methodology", "Research"]
 ---
 
 # The Methodology Going Forward

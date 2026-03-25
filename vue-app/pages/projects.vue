@@ -47,6 +47,30 @@
             </div>
           </a>
         </div>
+
+        <!-- Talk2Code - Public Repo -->
+        <div class="col-md-6">
+          <a 
+            href="https://github.com/dchisholm125/Talk2Code" 
+            target="_blank"
+            class="text-decoration-none d-block h-100"
+          >
+            <div class="card h-100 p-4 border-0 shadow-sm bg-dark text-white card-hover">
+              <div class="d-flex align-items-center mb-3">
+                <h3 class="h4 fw-bold mb-0 text-white">Talk2Code</h3>
+                <span class="badge bg-light text-dark ms-2 font-mono">Open Source</span>
+              </div>
+              <p class="text-light mb-4">
+                Neuro-symbolic bridge between Telegram and your local dev environment. 
+                Leveraging the SRM (Symbolic Reasoning Model) to decouple planning 
+                from syntax generation for autonomous, hallucination-free coding.
+              </p>
+              <div class="text-light fw-bold">
+                View on GitHub →
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>

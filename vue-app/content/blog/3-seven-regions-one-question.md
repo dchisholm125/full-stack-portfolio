@@ -1,7 +1,8 @@
 ---
 title: Seven Regions, One Question
-description: Building a multi-region architecture — and one of them scared me a little.
+description: Can a graph have an opinion?
 date: 2026-03-24
+tags: ["Neuro-Symbolic", "Research", "AI"]
 ---
 
 # Seven Regions, One Question

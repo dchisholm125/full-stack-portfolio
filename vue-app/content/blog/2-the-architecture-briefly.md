@@ -2,6 +2,7 @@
 title: The Architecture, Briefly
 description: What the system actually is — and why "it's not an LLM" deserves more than a footnote.
 date: 2026-03-24
+tags: ["Architecture", "SRM", "AI"]
 ---
 
 # The Architecture, Briefly

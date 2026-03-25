@@ -2,6 +2,7 @@
 title: "Experiment H: Opening the Cage"
 description: "What happens when you remove the brakes on a stable predatory identity? And can you close the cage again?"
 date: "2026-03-24"
+tags: ["Deployment", "Talk2Code", "SRM"]
 ---
 
 # Experiment H: Opening the Cage

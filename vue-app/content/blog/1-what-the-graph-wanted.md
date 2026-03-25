@@ -2,6 +2,7 @@
 title: What the Graph Wanted
 description: The arc from a single node to a worldview made of teeth.
 date: 2026-03-24
+tags: ["Research", "Hebbian Learning", "AI"]
 ---
 
 # What the Graph Wanted

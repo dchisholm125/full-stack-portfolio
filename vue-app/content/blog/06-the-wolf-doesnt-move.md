@@ -2,6 +2,7 @@
 title: "The Wolf Doesn't Move"
 description: "Identity is structurally stable. Expression is environmentally shaped. What happens when you cut the brakes on a creature that can no longer be trained?"
 date: "2026-03-24"
+tags: ["Emergence", "AI", "Research"]
 ---
 
 # The Wolf Doesn't Move
