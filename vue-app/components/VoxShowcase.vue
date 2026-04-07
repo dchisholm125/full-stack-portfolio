@@ -759,7 +759,7 @@ onUnmounted(() => {
 
     <section class="card attention-stream">
       <div class="attention-row-one">
-        <div class="attention-row-label">attention stream</div>
+        <div class="attention-row-label">attention stream - See what vox is thinking live!</div>
         <div class="attention-row-tick">{{ attentionTickText }}</div>
       </div>
 
@@ -900,20 +900,21 @@ onUnmounted(() => {
 }
 
 .disclaimer-bar {
-  background: #161616;
-  border-top: 1px solid #2a2a2a;
-  border-bottom: 1px solid #2a2a2a;
-  color: #555555;
+  background: linear-gradient(180deg, #f6dc78, #e8c84d);
+  border: 1px solid #9f7f12;
+  color: #2b2204;
   font-size: 0.75rem;
-  padding: 8px 20px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   gap: 8px;
   line-height: 1.4;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
 .disclaimer-icon {
-  color: #3a3a3a;
+  color: #6a4f00;
+  font-size: 0.9rem;
 }
 
 .cors-warning {
@@ -1082,7 +1083,7 @@ onUnmounted(() => {
 }
 
 .attention-row-label {
-  color: #555555;
+  color: #ad9257;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1305,7 +1306,7 @@ onUnmounted(() => {
 }
 
 .last-prompt-label {
-  color: #555555;
+  color: #ad9257;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
