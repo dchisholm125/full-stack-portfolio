@@ -1277,7 +1277,7 @@ onUnmounted(() => {
 }
 
 .response-main {
-  color: var(--bright);
+  color: #efefef;
   font-size: 1.05rem;
   line-height: 1.45;
   min-height: 72px;
