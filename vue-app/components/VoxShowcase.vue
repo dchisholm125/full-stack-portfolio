@@ -8,6 +8,7 @@ const API_BASE = (import.meta.env.VITE_VOX_API_BASE as string | undefined)?.trim
 const POLL_STATUS_MS = 5000
 const POLL_THOUGHTS_MS = 3000
 const POLL_GRAPH_MS = 4000
+const POLL_ATTENTION_MS = 4000
 const MAX_THOUGHTS = 28
 const PROMPT_COOLDOWN_SECONDS = 10
 const GET_RETRIES = 2
@@ -80,6 +81,9 @@ const promptText = ref('')
 const promptStatus = ref('')
 const cooldownLeft = ref(0)
 const graphOffline = ref(false)
+const attentionFocus = ref('hippocampus')
+const attentionStream = ref('')
+const attentionOffline = ref(true)
 const corsBlocked = ref(false)
 const pollingPaused = ref(false)
 const apiErrorMessage = ref('')
@@ -95,6 +99,7 @@ let statusRequestInFlight = false
 let thoughtsRequestInFlight = false
 let competitionRequestInFlight = false
 let graphRequestInFlight = false
+let attentionRequestInFlight = false
 
 const API_BASE_NORMALIZED = API_BASE.endsWith('/') ? API_BASE : `${API_BASE}/`
 
@@ -155,6 +160,7 @@ function startPolling() {
   pollingTimers.push(window.setInterval(refreshThoughts, POLL_THOUGHTS_MS))
   pollingTimers.push(window.setInterval(refreshCompetition, POLL_STATUS_MS))
   pollingTimers.push(window.setInterval(refreshGraph, POLL_GRAPH_MS))
+  pollingTimers.push(window.setInterval(refreshAttention, POLL_ATTENTION_MS))
 }
 
 function handleConnectivityError(err: unknown) {
@@ -194,6 +200,7 @@ async function retryConnection() {
   await refreshThoughts()
   await refreshCompetition()
   await refreshGraph()
+  await refreshAttention()
 
   if (!pollingPaused.value) {
     startPolling()
@@ -559,6 +566,29 @@ async function refreshGraph() {
   graphRequestInFlight = false
 }
 
+async function refreshAttention() {
+  if (attentionRequestInFlight) return
+  attentionRequestInFlight = true
+
+  try {
+    const payload = await apiGet('/attention')
+    const nextFocus = String(payload.focus || 'hippocampus').toLowerCase()
+    const nextStream = String(payload.stream || '').trim()
+
+    attentionFocus.value = nextFocus
+    attentionStream.value = nextStream
+    attentionOffline.value = !nextStream
+  } catch (err) {
+    const msg = normalizeErrorMessage(err).toLowerCase()
+    if (!msg.includes('503')) {
+      handleConnectivityError(err)
+    }
+    attentionOffline.value = true
+  }
+
+  attentionRequestInFlight = false
+}
+
 const liveText = computed(() => (state.online ? 'live' : 'offline'))
 const tickText = computed(() => (state.tick == null ? 'tick: —' : `tick: ${state.tick}`))
 const moodValue = computed(() => clamp01(state.mood))
@@ -582,6 +612,8 @@ const winnerDisplayText = computed(() => {
 })
 
 const winnerIsSleeping = computed(() => !state.online)
+const attentionFocusColor = computed(() => getRegionColor(attentionFocus.value))
+const attentionTickerText = computed(() => attentionStream.value || '... waiting for signal ...')
 
 const promptDisabled = computed(() => state.loadingPrompt || cooldownLeft.value > 0 || corsBlocked.value)
 const sendButtonText = computed(() => (state.loadingPrompt ? 'thinking...' : 'send'))
@@ -603,6 +635,7 @@ onMounted(async () => {
   await refreshThoughts()
   await refreshCompetition()
   await refreshGraph()
+  await refreshAttention()
 
   if (!pollingPaused.value) {
     startPolling()
@@ -650,27 +683,6 @@ onUnmounted(() => {
       <span>
         This is a live experiment, not a product. Vox is a pure Python weighted graph organism running on a home lab server in Amesbury, MA. She learns continuously — including from whatever you type here. Expect the unexpected.
       </span>
-    </section>
-
-    <section class="card prompt-box">
-      <input
-        v-model="promptText"
-        class="prompt-input"
-        type="text"
-        placeholder="whisper something to Vox..."
-        autocomplete="off"
-        :disabled="promptDisabled"
-        @keydown.enter.prevent="submitPrompt"
-      >
-      <button class="send-btn" type="button" :disabled="promptDisabled" @click="submitPrompt">
-        <span>{{ sendButtonText }}</span>
-        <span v-if="state.loadingPrompt" class="loading-dots" aria-hidden="true">
-          <span class="dot-pulse"></span>
-          <span class="dot-pulse"></span>
-          <span class="dot-pulse"></span>
-        </span>
-      </button>
-      <div class="prompt-status">{{ promptStatus }}</div>
     </section>
 
     <section class="columns">
@@ -725,6 +737,43 @@ onUnmounted(() => {
           <div v-else class="sleeping">{{ state.online ? 'no recent candidates yet' : 'Vox is sleeping.' }}</div>
         </div>
       </article>
+    </section>
+
+    <section class="card attention-stream">
+      <div class="attention-left">
+        <div class="attention-label">attention</div>
+        <div class="attention-focus" :style="{ color: attentionFocusColor }">{{ attentionFocus }}</div>
+      </div>
+      <div class="attention-right">
+        <div v-if="attentionOffline" class="attention-offline">... waiting for signal ...</div>
+        <div v-else class="attention-marquee">
+          <div class="attention-track">
+            <span>{{ attentionTickerText }}</span>
+            <span class="attention-copy">{{ attentionTickerText }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card prompt-box">
+      <input
+        v-model="promptText"
+        class="prompt-input"
+        type="text"
+        placeholder="whisper something to Vox..."
+        autocomplete="off"
+        :disabled="promptDisabled"
+        @keydown.enter.prevent="submitPrompt"
+      >
+      <button class="send-btn" type="button" :disabled="promptDisabled" @click="submitPrompt">
+        <span>{{ sendButtonText }}</span>
+        <span v-if="state.loadingPrompt" class="loading-dots" aria-hidden="true">
+          <span class="dot-pulse"></span>
+          <span class="dot-pulse"></span>
+          <span class="dot-pulse"></span>
+        </span>
+      </button>
+      <div class="prompt-status">{{ promptStatus }}</div>
     </section>
   </main>
 </template>
@@ -927,6 +976,82 @@ onUnmounted(() => {
   grid-template-columns: 1fr 1.33fr 1fr;
   gap: 18px;
   min-height: 0;
+}
+
+.attention-stream {
+  height: 72px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.attention-left {
+  width: 120px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.attention-label {
+  color: #666666;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.attention-focus {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: lowercase;
+}
+
+.attention-right {
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.attention-marquee {
+  width: 100%;
+  overflow: hidden;
+}
+
+.attention-track {
+  display: inline-flex;
+  min-width: 200%;
+  white-space: nowrap;
+  color: #cccccc;
+  font-size: 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  animation: streamScroll 18s linear infinite;
+}
+
+.attention-copy {
+  padding-left: 8em;
+}
+
+.attention-offline {
+  width: 100%;
+  text-align: center;
+  color: #444444;
+  font-size: 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+@keyframes streamScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .panel {
