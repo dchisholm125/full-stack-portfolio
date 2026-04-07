@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 
 const API_BASE = (import.meta.env.VITE_VOX_API_BASE as string | undefined)?.trim()
-  || 'https://chicago-fiscal-offering-mae.trycloudflare.com'
+  || 'https://spectrum-louisville-dome-containers.trycloudflare.com'
 
 const POLL_STATUS_MS = 5000
 const POLL_THOUGHTS_MS = 3000
