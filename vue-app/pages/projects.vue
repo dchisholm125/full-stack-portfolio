@@ -71,6 +71,23 @@
             </div>
           </a>
         </div>
+
+        <!-- Vox - Private -->
+        <div class="col-md-6">
+          <div class="card h-100 p-4 border-0 shadow-sm bg-light">
+            <div class="d-flex align-items-center mb-3">
+              <h3 class="h4 fw-bold mb-0">Vox</h3>
+              <span class="badge bg-secondary ms-2 font-mono">Private</span>
+            </div>
+            <p class="text-muted mb-4">
+              Emergent artificial intelligence built with 100% interpretable nodes.
+              Built to solve interpretability using English words and graphs.
+            </p>
+            <div class="text-muted small">
+              <span class="me-3">🔒 Private project</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

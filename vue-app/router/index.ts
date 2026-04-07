@@ -14,6 +14,7 @@ import ProjectsPage from '../pages/projects.vue'
 import ResearchPage from '../pages/research.vue'
 import TindogPage from '../pages/tindog.vue'
 import UiFeaturesPage from '../pages/ui-features.vue'
+import VoxPage from '../pages/vox.vue'
 import BlogIndexPage from '../pages/blog/index.vue'
 import BlogDetailPage from '../pages/blog/[...slug].vue'
 
@@ -34,6 +35,7 @@ const router = createRouter({
     { path: '/research', component: ResearchPage },
     { path: '/tindog', component: TindogPage },
     { path: '/ui-features', component: UiFeaturesPage },
+    { path: '/vox', component: VoxPage, meta: { bareLayout: true } },
     { path: '/blog', component: BlogIndexPage },
     { path: '/blog/:slug(.*)*', component: BlogDetailPage },
   ],
