@@ -8,7 +8,7 @@ const API_BASE = (import.meta.env.VITE_VOX_API_BASE as string | undefined)?.trim
 const POLL_STATUS_MS = 5000
 const POLL_THOUGHTS_MS = 3000
 const POLL_GRAPH_MS = 4000
-const POLL_ATTENTION_MS = 4000
+const POLL_ATTENTION_MS = 3000
 const MAX_THOUGHTS = 28
 const PROMPT_COOLDOWN_SECONDS = 10
 const GET_RETRIES = 2
@@ -82,7 +82,10 @@ const promptStatus = ref('')
 const cooldownLeft = ref(0)
 const graphOffline = ref(false)
 const attentionFocus = ref('hippocampus')
+const attentionDominant = ref('—')
 const attentionStream = ref('')
+const attentionTick = ref<number | null>(null)
+const attentionNodes = ref<Array<{ label: string, region: string }>>([])
 const attentionOffline = ref(true)
 const corsBlocked = ref(false)
 const pollingPaused = ref(false)
@@ -574,15 +577,40 @@ async function refreshAttention() {
     const payload = await apiGet('/attention')
     const nextFocus = String(payload.focus || 'hippocampus').toLowerCase()
     const nextStream = String(payload.stream || '').trim()
+    const nextDominant = String(payload.dominant || payload.concept || payload.word || '').trim()
+    const parsedTick = Number(payload.tick)
+    const rawNodes = Array.isArray(payload.attention_nodes) ? payload.attention_nodes : []
+    const parsedNodes = rawNodes
+      .map((rawNode) => {
+        if (typeof rawNode === 'string') {
+          return { label: rawNode, region: nextFocus }
+        }
+
+        if (rawNode && typeof rawNode === 'object') {
+          const record = rawNode as Record<string, unknown>
+          return {
+            label: String(record.label || record.node || record.word || '').trim(),
+            region: String(record.region || record.focus || nextFocus).toLowerCase(),
+          }
+        }
+
+        return { label: '', region: nextFocus }
+      })
+      .filter((node) => node.label)
 
     attentionFocus.value = nextFocus
+    attentionDominant.value = nextDominant || (parsedNodes[0]?.label || '—')
     attentionStream.value = nextStream
+    attentionTick.value = Number.isFinite(parsedTick) ? parsedTick : null
+    attentionNodes.value = parsedNodes
     attentionOffline.value = !nextStream
   } catch (err) {
     const msg = normalizeErrorMessage(err).toLowerCase()
     if (!msg.includes('503')) {
       handleConnectivityError(err)
     }
+    attentionTick.value = null
+    attentionNodes.value = []
     attentionOffline.value = true
   }
 
@@ -614,6 +642,15 @@ const winnerDisplayText = computed(() => {
 const winnerIsSleeping = computed(() => !state.online)
 const attentionFocusColor = computed(() => getRegionColor(attentionFocus.value))
 const attentionTickerText = computed(() => attentionStream.value || '... waiting for signal ...')
+const attentionTickText = computed(() => {
+  if (attentionTick.value == null) return ''
+  return `t${new Intl.NumberFormat('en-US').format(attentionTick.value)}`
+})
+const attentionDominantText = computed(() => attentionDominant.value || '—')
+const attentionNodePills = computed(() => attentionNodes.value.map((node) => ({
+  ...node,
+  color: getRegionColor(node.region),
+})))
 
 const promptDisabled = computed(() => state.loadingPrompt || cooldownLeft.value > 0 || corsBlocked.value)
 const sendButtonText = computed(() => (state.loadingPrompt ? 'thinking...' : 'send'))
@@ -685,6 +722,71 @@ onUnmounted(() => {
       </span>
     </section>
 
+    <section class="card prompt-box">
+      <input
+        v-model="promptText"
+        class="prompt-input"
+        type="text"
+        placeholder="whisper something to Vox..."
+        autocomplete="off"
+        :disabled="promptDisabled"
+        @keydown.enter.prevent="submitPrompt"
+      >
+      <button class="send-btn" type="button" :disabled="promptDisabled" @click="submitPrompt">
+        <span>{{ sendButtonText }}</span>
+        <span v-if="state.loadingPrompt" class="loading-dots" aria-hidden="true">
+          <span class="dot-pulse"></span>
+          <span class="dot-pulse"></span>
+          <span class="dot-pulse"></span>
+        </span>
+      </button>
+      <div class="prompt-status">{{ promptStatus }}</div>
+    </section>
+
+    <section class="card attention-stream">
+      <div class="attention-row-one">
+        <div class="attention-row-label">attention stream</div>
+        <div class="attention-row-tick">{{ attentionTickText }}</div>
+      </div>
+
+      <div class="attention-row-two">
+        <div class="attention-left">
+          <div class="attention-focus-label">focus</div>
+          <div class="attention-dominant">{{ attentionDominantText }}</div>
+          <div class="attention-focus" :style="{ color: attentionFocusColor }">{{ attentionFocus }}</div>
+        </div>
+
+        <div class="attention-divider"></div>
+
+        <div class="attention-right">
+          <div v-if="attentionOffline" class="attention-offline">... waiting for signal ...</div>
+          <template v-else>
+            <div class="attention-marquee">
+              <div class="attention-track">
+                <span>{{ attentionTickerText }}</span>
+                <span class="attention-copy">{{ attentionTickerText }}</span>
+              </div>
+            </div>
+
+            <div v-if="attentionNodePills.length" class="attention-pills">
+              <span
+                v-for="(node, idx) in attentionNodePills"
+                :key="`${node.label}-${idx}`"
+                class="attention-pill"
+                :style="{
+                  color: node.color,
+                  borderColor: `${node.color}66`,
+                  backgroundColor: `${node.color}26`
+                }"
+              >
+                {{ node.label }}
+              </span>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
     <section class="columns">
       <article class="card panel">
         <h2 class="panel-title">inner voice</h2>
@@ -737,43 +839,6 @@ onUnmounted(() => {
           <div v-else class="sleeping">{{ state.online ? 'no recent candidates yet' : 'Vox is sleeping.' }}</div>
         </div>
       </article>
-    </section>
-
-    <section class="card attention-stream">
-      <div class="attention-left">
-        <div class="attention-label">attention</div>
-        <div class="attention-focus" :style="{ color: attentionFocusColor }">{{ attentionFocus }}</div>
-      </div>
-      <div class="attention-right">
-        <div v-if="attentionOffline" class="attention-offline">... waiting for signal ...</div>
-        <div v-else class="attention-marquee">
-          <div class="attention-track">
-            <span>{{ attentionTickerText }}</span>
-            <span class="attention-copy">{{ attentionTickerText }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card prompt-box">
-      <input
-        v-model="promptText"
-        class="prompt-input"
-        type="text"
-        placeholder="whisper something to Vox..."
-        autocomplete="off"
-        :disabled="promptDisabled"
-        @keydown.enter.prevent="submitPrompt"
-      >
-      <button class="send-btn" type="button" :disabled="promptDisabled" @click="submitPrompt">
-        <span>{{ sendButtonText }}</span>
-        <span v-if="state.loadingPrompt" class="loading-dots" aria-hidden="true">
-          <span class="dot-pulse"></span>
-          <span class="dot-pulse"></span>
-          <span class="dot-pulse"></span>
-        </span>
-      </button>
-      <div class="prompt-status">{{ promptStatus }}</div>
     </section>
   </main>
 </template>
@@ -979,42 +1044,83 @@ onUnmounted(() => {
 }
 
 .attention-stream {
-  height: 72px;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  overflow: hidden;
-}
-
-.attention-left {
-  width: 120px;
-  min-width: 120px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
 }
 
-.attention-label {
+.attention-row-one {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.attention-row-label {
   color: #666666;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
+.attention-row-tick {
+  color: #444444;
+  font-size: 0.72rem;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+.attention-row-two {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.attention-left {
+  width: 140px;
+  min-width: 140px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.attention-focus-label {
+  color: #444444;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.attention-dominant {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
 .attention-focus {
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: lowercase;
+}
+
+.attention-divider {
+  width: 1px;
+  height: 40px;
+  background: #1e1e1e;
+  flex-shrink: 0;
 }
 
 .attention-right {
   flex: 1;
   overflow: hidden;
   min-width: 0;
-  height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
 }
 
 .attention-marquee {
@@ -1029,7 +1135,7 @@ onUnmounted(() => {
   color: #cccccc;
   font-size: 1rem;
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  animation: streamScroll 18s linear infinite;
+  animation: streamScroll 20s linear infinite;
 }
 
 .attention-copy {
@@ -1038,10 +1144,25 @@ onUnmounted(() => {
 
 .attention-offline {
   width: 100%;
-  text-align: center;
+  text-align: left;
   color: #444444;
   font-size: 1rem;
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+.attention-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.attention-pill {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid;
+  line-height: 1.4;
 }
 
 @keyframes streamScroll {
