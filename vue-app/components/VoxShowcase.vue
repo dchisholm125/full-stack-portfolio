@@ -2,7 +2,7 @@
 import * as d3 from 'd3'
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 
-const API_BASE = "https://lunch-said-latter-pages.trycloudflare.com/"
+const API_BASE = "https://lunch-said-latter-pages.trycloudflare.com"
 
 const POLL_STATUS_MS = 5000
 const POLL_THOUGHTS_MS = 3000
