@@ -2,7 +2,8 @@
 import * as d3 from 'd3'
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 
-const API_BASE = "https://lunch-said-latter-pages.trycloudflare.com"
+const API_BASE = (import.meta.env.VITE_VOX_API_BASE as string | undefined)?.trim()
+  || 'https://lunch-said-latter-pages.trycloudflare.com'
 
 const POLL_STATUS_MS = 5000
 const POLL_THOUGHTS_MS = 3000
@@ -76,6 +77,9 @@ const promptText = ref('')
 const promptStatus = ref('')
 const cooldownLeft = ref(0)
 const graphOffline = ref(false)
+const corsBlocked = ref(false)
+const pollingPaused = ref(false)
+const apiErrorMessage = ref('')
 
 const graphSvgRef = ref<SVGSVGElement | null>(null)
 const graphContainerRef = ref<HTMLElement | null>(null)
@@ -84,6 +88,67 @@ let graphSvgSelection: d3.Selection<SVGSVGElement, unknown, null, undefined> | n
 let graphSimulation: d3.Simulation<GraphNode, undefined> | null = null
 let cooldownTimer: number | null = null
 const pollingTimers: number[] = []
+
+function normalizeErrorMessage(err: unknown) {
+  if (err instanceof Error) return err.message
+  return String(err || 'Unknown error')
+}
+
+function clearPollingTimers() {
+  pollingTimers.forEach((timerId) => window.clearInterval(timerId))
+  pollingTimers.length = 0
+}
+
+function startPolling() {
+  clearPollingTimers()
+  pollingTimers.push(window.setInterval(refreshStatus, POLL_STATUS_MS))
+  pollingTimers.push(window.setInterval(refreshThoughts, POLL_THOUGHTS_MS))
+  pollingTimers.push(window.setInterval(refreshCompetition, POLL_STATUS_MS))
+  pollingTimers.push(window.setInterval(refreshGraph, POLL_GRAPH_MS))
+}
+
+function handleConnectivityError(err: unknown) {
+  const msg = normalizeErrorMessage(err)
+  const lower = msg.toLowerCase()
+  const likelyCors = lower.includes('network_cors')
+    || lower.includes('failed to fetch')
+    || lower.includes('load failed')
+    || lower.includes('preflight')
+    || lower.includes('access-control-allow-origin')
+    || lower.includes('cors')
+
+  if (likelyCors) {
+    corsBlocked.value = true
+    pollingPaused.value = true
+    apiErrorMessage.value = 'Cross-origin request blocked. Configure CORS on the Vox API or use a same-origin proxy URL via VITE_VOX_API_BASE.'
+    promptStatus.value = 'Vox API blocked by CORS'
+    setOnline(false)
+    graphOffline.value = true
+    clearPollingTimers()
+    return
+  }
+
+  if (lower.includes('503')) {
+    promptStatus.value = 'Vox backend unavailable (503)'
+    apiErrorMessage.value = 'Vox backend returned 503. It may be sleeping or restarting.'
+  }
+}
+
+async function retryConnection() {
+  corsBlocked.value = false
+  pollingPaused.value = false
+  apiErrorMessage.value = ''
+  promptStatus.value = 'retrying connection...'
+
+  await refreshStatus()
+  await refreshThoughts()
+  await refreshCompetition()
+  await refreshGraph()
+
+  if (!pollingPaused.value) {
+    startPolling()
+  }
+}
 
 function clamp01(n: unknown) {
   return Math.max(0, Math.min(1, Number(n) || 0))
@@ -111,7 +176,14 @@ function candidateRegion(candidate: Candidate) {
 }
 
 async function apiGet(path: string) {
-  const res = await fetch(`${API_BASE}${path}`, { method: 'GET' })
+  let res: Response
+
+  try {
+    res = await fetch(`${API_BASE}${path}`, { method: 'GET' })
+  } catch {
+    throw new Error(`NETWORK_CORS ${path}`)
+  }
+
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
     const errMsg = data && data.error ? data.error : `HTTP ${res.status}`
@@ -121,11 +193,18 @@ async function apiGet(path: string) {
 }
 
 async function apiPost(path: string, payload: Record<string, unknown>) {
-  const res = await fetch(`${API_BASE}${path}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  })
+  let res: Response
+
+  try {
+    res = await fetch(`${API_BASE}${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+  } catch {
+    throw new Error(`NETWORK_CORS ${path}`)
+  }
+
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
     const errMsg = data && data.error ? data.error : `HTTP ${res.status}`
@@ -174,7 +253,8 @@ async function refreshStatus() {
     setOnline(Boolean(health.vox))
     state.tick = status.tick ?? state.tick
     state.mood = vitals.mood ?? status.mood ?? state.mood
-  } catch {
+  } catch (err) {
+    handleConnectivityError(err)
     setOnline(false)
   }
 
@@ -188,7 +268,8 @@ async function refreshThoughts() {
   try {
     const payload = await apiGet('/thoughts')
     mergeThoughts(payload.thoughts || [])
-  } catch {
+  } catch (err) {
+    handleConnectivityError(err)
     if (!state.online) {
       state.thoughts = []
       state.thoughtKeys.clear()
@@ -205,7 +286,8 @@ async function refreshCompetition() {
       const winner = payload.winner || {}
       state.winnerText = String(winner.response || '')
     }
-  } catch {
+  } catch (err) {
+    handleConnectivityError(err)
     if (!state.online) {
       state.winnerText = ''
       state.lastCandidates = []
@@ -270,6 +352,7 @@ async function submitPrompt() {
     await refreshGraph()
     promptText.value = ''
   } catch (err) {
+    handleConnectivityError(err)
     const msg = err instanceof Error ? err.message : 'Vox is sleeping'
     if (/sleeping/i.test(msg) || /failed|network|http 503/i.test(msg.toLowerCase())) {
       setOnline(false)
@@ -407,7 +490,8 @@ async function refreshGraph() {
       nodes: Array.isArray(payload.nodes) ? payload.nodes : [],
       edges: Array.isArray(payload.edges) ? payload.edges : [],
     })
-  } catch {
+  } catch (err) {
+    handleConnectivityError(err)
     if (!state.online) {
       graphOffline.value = true
     }
@@ -438,7 +522,7 @@ const winnerDisplayText = computed(() => {
 
 const winnerIsSleeping = computed(() => !state.online)
 
-const promptDisabled = computed(() => state.loadingPrompt || cooldownLeft.value > 0)
+const promptDisabled = computed(() => state.loadingPrompt || cooldownLeft.value > 0 || corsBlocked.value)
 const sendButtonText = computed(() => (state.loadingPrompt ? 'sending...' : 'send'))
 
 watch(
@@ -459,14 +543,13 @@ onMounted(async () => {
   await refreshCompetition()
   await refreshGraph()
 
-  pollingTimers.push(window.setInterval(refreshStatus, POLL_STATUS_MS))
-  pollingTimers.push(window.setInterval(refreshThoughts, POLL_THOUGHTS_MS))
-  pollingTimers.push(window.setInterval(refreshCompetition, POLL_STATUS_MS))
-  pollingTimers.push(window.setInterval(refreshGraph, POLL_GRAPH_MS))
+  if (!pollingPaused.value) {
+    startPolling()
+  }
 })
 
 onUnmounted(() => {
-  pollingTimers.forEach((timerId) => window.clearInterval(timerId))
+  clearPollingTimers()
   clearCooldownTimer()
   graphSimulation?.stop()
 })
@@ -474,6 +557,14 @@ onUnmounted(() => {
 
 <template>
   <main class="app">
+    <section v-if="corsBlocked" class="card cors-warning">
+      <div>
+        <strong>Vox API blocked by CORS.</strong>
+        <div class="warning-text">{{ apiErrorMessage }}</div>
+      </div>
+      <button class="retry-btn" type="button" @click="retryConnection">Retry</button>
+    </section>
+
     <section class="card header">
       <div class="header-left">
         <div class="vox-title">VOX</div>
@@ -598,6 +689,38 @@ onUnmounted(() => {
   border: 1px solid var(--line);
   background: linear-gradient(180deg, var(--panel-2), var(--panel));
   border-radius: 12px;
+}
+
+.cors-warning {
+  padding: 12px 14px;
+  border-color: #46311f;
+  background: linear-gradient(180deg, #21160f, #1c130e);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.warning-text {
+  color: #d9b08c;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.retry-btn {
+  border: 1px solid #5a3d2a;
+  background: #2a1d15;
+  color: #f0d7c1;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.retry-btn:hover {
+  background: #36261c;
 }
 
 .header {
