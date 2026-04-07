@@ -789,8 +789,8 @@ onUnmounted(() => {
                 class="attention-pill"
                 :style="{
                   color: node.color,
-                  borderColor: `${node.color}66`,
-                  backgroundColor: `${node.color}26`
+                  borderColor: `${node.color}8c`,
+                  backgroundColor: `${node.color}38`
                 }"
               >
                 {{ node.label }}
@@ -864,10 +864,10 @@ onUnmounted(() => {
 
 <style scoped>
 :root {
-  --bg: #0d0d0d;
-  --panel: #131313;
-  --panel-2: #171717;
-  --line: #242424;
+  --bg: #111111;
+  --panel: #1a1a1a;
+  --panel-2: #1a1a1a;
+  --line: #2e2e2e;
   --text: #dddddd;
   --muted: #9a9a9a;
   --bright: #f3f3f3;
@@ -894,16 +894,16 @@ onUnmounted(() => {
 }
 
 .card {
-  border: 1px solid var(--line);
+  border: 1px solid #2e2e2e;
   background: linear-gradient(180deg, var(--panel-2), var(--panel));
   border-radius: 12px;
 }
 
 .disclaimer-bar {
-  background: #111111;
-  border-top: 1px solid #1e1e1e;
-  border-bottom: 1px solid #1e1e1e;
-  color: #666666;
+  background: #161616;
+  border-top: 1px solid #2a2a2a;
+  border-bottom: 1px solid #2a2a2a;
+  color: #555555;
   font-size: 0.75rem;
   padding: 8px 20px;
   display: flex;
@@ -913,7 +913,7 @@ onUnmounted(() => {
 }
 
 .disclaimer-icon {
-  color: #444444;
+  color: #3a3a3a;
 }
 
 .cors-warning {
@@ -980,7 +980,7 @@ onUnmounted(() => {
 .vox-title {
   font-size: 0.85rem;
   letter-spacing: 0.12em;
-  color: #f0f0f0;
+  color: #ffffff;
   font-variant: small-caps;
   font-weight: 700;
 }
@@ -1024,7 +1024,7 @@ onUnmounted(() => {
 }
 
 .tick {
-  color: var(--bright);
+  color: #cccccc;
   font-size: 0.9rem;
   letter-spacing: 0.04em;
 }
@@ -1048,11 +1048,15 @@ onUnmounted(() => {
 
 .mood-label {
   font-size: 0.72rem;
-  color: var(--muted);
+  color: #888888;
   letter-spacing: 0.05em;
   text-transform: lowercase;
   min-width: 62px;
   text-align: right;
+}
+
+.live-chip .dot.live + span {
+  color: #52ff97;
 }
 
 .columns {
@@ -1063,6 +1067,7 @@ onUnmounted(() => {
 }
 
 .attention-stream {
+  background: #1a1a1a;
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
@@ -1077,7 +1082,7 @@ onUnmounted(() => {
 }
 
 .attention-row-label {
-  color: #666666;
+  color: #555555;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1105,14 +1110,14 @@ onUnmounted(() => {
 }
 
 .attention-focus-label {
-  color: #444444;
+  color: #555555;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .attention-dominant {
-  color: #ffffff;
+  color: #eeeeee;
   font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.2;
@@ -1127,7 +1132,7 @@ onUnmounted(() => {
 .attention-divider {
   width: 1px;
   height: 40px;
-  background: #1e1e1e;
+  background: #2a2a2a;
   flex-shrink: 0;
 }
 
@@ -1151,7 +1156,7 @@ onUnmounted(() => {
   display: inline-flex;
   min-width: 200%;
   white-space: nowrap;
-  color: #cccccc;
+  color: #aaaaaa;
   font-size: 1rem;
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   animation: streamScroll 20s linear infinite;
@@ -1202,7 +1207,7 @@ onUnmounted(() => {
 }
 
 .panel-title {
-  color: #c3c3c3;
+  color: #888888;
   font-size: 0.8rem;
   letter-spacing: 0.11em;
   text-transform: lowercase;
@@ -1227,15 +1232,15 @@ onUnmounted(() => {
 }
 
 .thought-item {
-  border: 1px solid #1f1f1f;
-  background: #101010;
+  border: 1px solid #272727;
+  background: #161616;
   border-radius: 10px;
   padding: 10px;
   transition: opacity 300ms ease;
 }
 
 .thought-text {
-  color: #cfcfcf;
+  color: #cccccc;
   font-size: 1rem;
   line-height: 1.35;
   margin: 0 0 6px 0;
@@ -1251,8 +1256,9 @@ onUnmounted(() => {
 
 .badge {
   font-size: 0.67rem;
-  color: #bcbcbc;
-  border: 1px solid #3a3a3a;
+  color: #888888;
+  background: #1e1e1e;
+  border: 1px solid #333333;
   border-radius: 999px;
   padding: 2px 7px;
   text-transform: lowercase;
@@ -1261,7 +1267,7 @@ onUnmounted(() => {
 }
 
 .stamp {
-  color: #7f7f7f;
+  color: #555555;
   font-size: 0.7rem;
   white-space: nowrap;
 }
@@ -1278,7 +1284,7 @@ onUnmounted(() => {
 
 .response-main {
   color: #efefef;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.45;
   min-height: 72px;
   margin: 0 0 10px 0;
@@ -1286,29 +1292,29 @@ onUnmounted(() => {
 }
 
 .panel-last-prompt {
-  border: 1px solid #2b2540;
-  background: linear-gradient(180deg, #191425, #151220);
+  border: 1px solid #2e2e2e;
+  background: #1a1a1a;
 }
 
 .last-prompt-block {
-  border: 1px solid #332b4a;
-  background: linear-gradient(180deg, #1c1630, #181327);
+  border: 1px solid #2e2e2e;
+  background: #1a1a1a;
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
 }
 
 .last-prompt-label {
-  color: #a39abf;
-  font-size: 0.72rem;
+  color: #555555;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.1em;
   margin-bottom: 4px;
 }
 
 .last-prompt-text {
-  color: #efe9ff;
-  font-size: 0.95rem;
+  color: #888888;
+  font-size: 0.9rem;
   line-height: 1.4;
   margin: 0 0 10px 0;
   word-break: break-word;
@@ -1328,7 +1334,7 @@ onUnmounted(() => {
   align-items: start;
   font-size: 0.85rem;
   color: #9a9a9a;
-  border-bottom: 1px dashed #262626;
+  border-bottom: 1px dashed #222222;
   padding-bottom: 7px;
 }
 
@@ -1356,7 +1362,7 @@ onUnmounted(() => {
 }
 
 .candidate-text {
-  color: #a8a8a8;
+  color: #777777;
   white-space: normal;
   overflow: visible;
   word-break: break-word;
@@ -1394,6 +1400,7 @@ onUnmounted(() => {
 }
 
 .prompt-box {
+  background: #1a1a1a;
   padding: 12px;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -1403,13 +1410,17 @@ onUnmounted(() => {
 
 .prompt-input {
   width: 100%;
-  background: #101010;
+  background: #141414;
   border: 1px solid #2a2a2a;
-  color: #ebebeb;
+  color: #dddddd;
   border-radius: 9px;
   padding: 12px 14px;
   font-size: 0.95rem;
   outline: none;
+}
+
+.prompt-input::placeholder {
+  color: #444444;
 }
 
 .prompt-input:focus {
@@ -1423,9 +1434,9 @@ onUnmounted(() => {
 }
 
 .send-btn {
-  background: #1d1d1d;
-  border: 1px solid #313131;
-  color: #dfdfdf;
+  background: #222222;
+  border: 1px solid #333333;
+  color: #cccccc;
   border-radius: 9px;
   padding: 11px 14px;
   font-family: inherit;
@@ -1440,8 +1451,17 @@ onUnmounted(() => {
 }
 
 .send-btn:hover:not(:disabled) {
-  border-color: #484848;
-  background: #222;
+  border-color: #444444;
+  background: #2a2a2a;
+}
+
+.graph-container :deep(.edges line) {
+  stroke: #333333;
+  opacity: 0.52;
+}
+
+.graph-container :deep(.nodes text) {
+  fill: #999999;
 }
 
 .send-btn:disabled {
