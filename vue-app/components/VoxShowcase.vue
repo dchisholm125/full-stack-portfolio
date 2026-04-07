@@ -73,6 +73,7 @@ const state = reactive({
   thoughtKeys: new Set<string>(),
   cooldownUntil: 0,
   loadingPrompt: false,
+  lastPromptText: '',
   lastCandidates: [] as Candidate[],
   winnerText: '',
 })
@@ -398,6 +399,7 @@ async function submitPrompt() {
   if (cooldownLeft.value > 0 || state.loadingPrompt) return
 
   setPromptLoading(true)
+  state.lastPromptText = text
 
   try {
     const payload = await apiPost('/prompt', { text })
@@ -535,6 +537,15 @@ function updateGraph(newData: GraphPayload) {
   graphSimulation.on('tick', () => {
     if (!graphSvgSelection) return
 
+    const containerWidth = graphContainerRef.value?.clientWidth || 420
+    const containerHeight = graphContainerRef.value?.clientHeight || 320
+
+    for (const node of nodes) {
+      const radius = nodeRadius(node) + 2
+      node.x = Math.max(radius, Math.min(containerWidth - radius, node.x || 0))
+      node.y = Math.max(radius, Math.min(containerHeight - radius, node.y || 0))
+    }
+
     graphSvgSelection
       .selectAll<SVGLineElement, GraphEdge>('.edges line')
       .attr('x1', (d) => (d.source as GraphNode).x || 0)
@@ -642,6 +653,9 @@ const winnerDisplayText = computed(() => {
 const winnerIsSleeping = computed(() => !state.online)
 const attentionFocusColor = computed(() => getRegionColor(attentionFocus.value))
 const attentionTickerText = computed(() => attentionStream.value || '... waiting for signal ...')
+const lastPromptDisplayText = computed(() => {
+  return state.lastPromptText.trim() ? state.lastPromptText : '—'
+})
 const attentionTickText = computed(() => {
   if (attentionTick.value == null) return ''
   return `t${new Intl.NumberFormat('en-US').format(attentionTick.value)}`
@@ -820,9 +834,14 @@ onUnmounted(() => {
         </div>
       </article>
 
-      <article class="card panel">
+      <article class="card panel panel-last-prompt">
         <h2 class="panel-title">last prompt</h2>
-        <p :class="['response-main', { sleeping: winnerIsSleeping }]">{{ winnerDisplayText }}</p>
+        <div class="last-prompt-block">
+          <div class="last-prompt-label">Prompt</div>
+          <p class="last-prompt-text">{{ lastPromptDisplayText }}</p>
+          <div class="last-prompt-label">Vox response</div>
+          <p :class="['response-main', { sleeping: winnerIsSleeping }]">{{ winnerDisplayText }}</p>
+        </div>
         <div class="candidate-list">
           <template v-if="state.lastCandidates.length">
             <div
@@ -1259,9 +1278,38 @@ onUnmounted(() => {
 
 .response-main {
   color: var(--bright);
-  font-size: 1.28rem;
+  font-size: 1.05rem;
   line-height: 1.45;
-  min-height: 120px;
+  min-height: 72px;
+  margin: 0 0 10px 0;
+  word-break: break-word;
+}
+
+.panel-last-prompt {
+  border: 1px solid #2b2540;
+  background: linear-gradient(180deg, #191425, #151220);
+}
+
+.last-prompt-block {
+  border: 1px solid #332b4a;
+  background: linear-gradient(180deg, #1c1630, #181327);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.last-prompt-label {
+  color: #a39abf;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 4px;
+}
+
+.last-prompt-text {
+  color: #efe9ff;
+  font-size: 0.95rem;
+  line-height: 1.4;
   margin: 0 0 10px 0;
   word-break: break-word;
 }
@@ -1324,12 +1372,15 @@ onUnmounted(() => {
   height: 100%;
   min-height: 0;
   position: relative;
+  overflow: hidden;
 }
 
 .graph-container svg {
   width: 100%;
   height: 100%;
   min-height: 280px;
+  display: block;
+  overflow: hidden;
 }
 
 .graph-offline-text {
