@@ -1,5 +1,37 @@
 <script setup lang="ts">
-// No custom logic for now, but ready for Composition API
+import { onMounted, reactive } from 'vue'
+
+const VOX_STATUS_API = 'https://prompt-enclosure-strips-wilson.trycloudflare.com/status'
+
+const voxStatus = reactive({
+  ticks: null as number | null,
+  episodes: null as number | null,
+  active: false,
+})
+
+function formatNumber(value: number | null) {
+  return value == null ? '—' : new Intl.NumberFormat('en-US').format(value)
+}
+
+async function loadVoxStatus() {
+  try {
+    const res = await fetch(VOX_STATUS_API)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    const data = await res.json()
+
+    voxStatus.ticks = typeof data.tick === 'number' ? data.tick : (typeof data.ticks === 'number' ? data.ticks : null)
+    voxStatus.episodes = typeof data.total_episodes === 'number' ? data.total_episodes : null
+    voxStatus.active = Boolean(data.active)
+  } catch {
+    voxStatus.ticks = null
+    voxStatus.episodes = null
+    voxStatus.active = false
+  }
+}
+
+onMounted(() => {
+  void loadVoxStatus()
+})
 </script>
 
 <template>
@@ -55,24 +87,24 @@
         <div class="row min-vh-75 align-items-center">
           <div class="col-lg-8">
             <div class="mb-2">
-              <span class="badge bg-dark text-light px-3 py-2 font-mono">Independent Researcher</span>
+              <span class="badge hero-badge px-3 py-2 font-mono">Independent Researcher</span>
             </div>
             <h1 class="display-2 fw-bold mb-4 hero-name">Derek Chisholm</h1>
-            <h2 class="h3 text-secondary mb-4 fw-light">AI Researcher & Software Engineer</h2>
-            <p class="lead fs-4 mb-4 text-dark fw-medium">
+            <h2 class="hero-subtitle h3 mb-4 fw-light">AI Researcher & Software Engineer</h2>
+            <p class="hero-tagline lead fs-4 mb-4 fw-medium">
               I build things that think — and then I watch what they actually do.
             </p>
-            <p class="fs-5 mb-5 text-muted max-width-600">
+            <p class="hero-description fs-5 mb-5 max-width-600">
               Running a home lab on emergent cognition: pure Python weighted graph 
-              organisms that learn through Hebbian co-occurrence. No LLMs, no 
+              <span class="graph-underline">organisms that learn through Hebbian co-occurrence</span>. No LLMs, no 
               transformers, no pre-trained weights. Just graphs, statistics, 
               and the occasional accidental aphasia.
             </p>
             <div class="d-flex gap-3 flex-wrap">
-              <NuxtLink to="/research" class="btn btn-dark btn-lg px-4">
+              <NuxtLink to="/research" class="btn btn-lg px-4 hero-primary-btn">
                 <span class="me-2">🔬</span>Read the research
               </NuxtLink>
-              <NuxtLink to="/projects" class="btn btn-outline-dark btn-lg px-4">
+              <NuxtLink to="/projects" class="btn btn-lg px-4 hero-secondary-btn">
                 <span class="me-2">⚙️</span>See the projects
               </NuxtLink>
             </div>
@@ -80,6 +112,49 @@
         </div>
       </div>
     </header>
+
+    <section class="vox-feature">
+      <div class="container py-5">
+        <div class="row align-items-start g-4">
+          <div class="col-lg-7">
+            <div class="vox-live-label mb-3">LIVE EXPERIMENT</div>
+            <h2 class="vox-feature-title mb-3">Meet Vox.</h2>
+            <p class="vox-feature-subtitle mb-4">A digital organism that thinks in graphs.</p>
+            <div class="vox-feature-copy">
+              <p>
+                Vox is not an LLM. She is a pure Python weighted graph organism — 7 brain regions, Hebbian learning, no pre-trained weights. Every concept she knows she learned by experience.
+              </p>
+              <p>
+                You can watch her think in real time. Her attention stream, inner voice, and region competition are all fully interpretable — every response traceable to the exact nodes and edges that produced it.
+              </p>
+            </div>
+            <NuxtLink to="/vox" class="vox-cta btn btn-outline-success px-4 py-2">
+              Interact with Vox →
+            </NuxtLink>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="vox-status-grid">
+              <div class="vox-stat-box">
+                <div class="vox-stat-label">ticks</div>
+                <div class="vox-stat-value">{{ formatNumber(voxStatus.ticks) }}</div>
+              </div>
+              <div class="vox-stat-box">
+                <div class="vox-stat-label">episodes</div>
+                <div class="vox-stat-value">{{ formatNumber(voxStatus.episodes) }}</div>
+              </div>
+              <div class="vox-stat-box">
+                <div class="vox-stat-label">status</div>
+                <div class="vox-stat-value" :class="voxStatus.active ? 'vox-status-live' : 'vox-status-offline'">
+                  ● {{ voxStatus.active ? 'live' : 'offline' }}
+                </div>
+              </div>
+            </div>
+            <div class="vox-status-note mt-3">Running on a home lab server in Amesbury, MA</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Research Snapshots -->
     <section class="research-snapshots py-5">
@@ -92,7 +167,7 @@
                 <div class="mb-3">
                   <span class="badge bg-danger">Live Experiment</span>
                 </div>
-                <h3 class="h5 fw-bold mb-3">Graph Organism Lab</h3>
+                <h3 class="h5 fw-bold mb-3 project-card-title">Graph Organism Lab</h3>
                 <p class="card-text text-muted mb-4">
                   Seven specialized brain regions — hippocampus, amygdala, 
                   prefrontal cortex, and four more — competing through a 
@@ -112,7 +187,7 @@
                 <div class="mb-3">
                   <span class="badge bg-secondary">Paper</span>
                 </div>
-                <h3 class="h5 fw-bold mb-3">Semantic Reasoning Membrane</h3>
+                <h3 class="h5 fw-bold mb-3 project-card-title">Semantic Reasoning Membrane</h3>
                 <p class="card-text text-muted mb-4">
                   Benchmarking semantic primitive emergence in small language models. 
                   Evidence that a shared concept layer exists between 0.5B and 8B 
@@ -131,7 +206,7 @@
                   <div class="mb-3">
                     <span class="badge bg-dark">Ongoing</span>
                   </div>
-                  <h3 class="h5 fw-bold mb-3">Lab Notes</h3>
+                    <h3 class="h5 fw-bold mb-3 project-card-title">Lab Notes</h3>
                   <p class="card-text text-muted mb-4">
                     The unglamorous version: numbered experiment entries, dead ends 
                     documented, methodology explained. Science as the universe 
@@ -174,10 +249,10 @@
   overflow: hidden;
   color: #f2f7ff;
   background:
-    radial-gradient(circle at 18% 18%, rgba(56, 92, 160, 0.28), transparent 28%),
-    radial-gradient(circle at 82% 16%, rgba(89, 111, 194, 0.18), transparent 22%),
-    radial-gradient(circle at 50% 80%, rgba(35, 55, 120, 0.18), transparent 34%),
-    linear-gradient(180deg, #020512 0%, #050b1d 45%, #03060f 100%);
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.02), transparent 28%),
+    radial-gradient(circle at 82% 16%, rgba(255, 255, 255, 0.015), transparent 22%),
+    radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.015), transparent 34%),
+    #0d0d0d;
 }
 
 .portfolio-site > :not(.geometric-bg) {
@@ -198,8 +273,8 @@
   position: absolute;
   inset: -20%;
   background-image:
-    linear-gradient(rgba(140, 169, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(140, 169, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
   opacity: 0.35;
@@ -313,56 +388,174 @@
   padding-top: 2rem;
 }
 
+.hero-badge {
+  background: #1a1a1a;
+  border: 1px solid #2e2e2e;
+  color: #666666;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
 .hero-name {
-  background: linear-gradient(135deg, #f4f7ff 0%, #9eb5ff 48%, #eef4ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
 }
 
-.portfolio-site :deep(.text-dark),
-.portfolio-site :deep(.text-secondary),
-.portfolio-site :deep(.text-muted),
-.portfolio-site :deep(.card-text),
-.portfolio-site :deep(.lead),
-.portfolio-site :deep(p),
-.portfolio-site :deep(li) {
-  color: #dbe6ff !important;
+.hero-subtitle {
+  color: #666666 !important;
 }
 
-.portfolio-site :deep(.text-muted),
-.portfolio-site :deep(.card-text) {
-  color: rgba(223, 232, 255, 0.74) !important;
+.hero-tagline {
+  color: #cccccc !important;
+  font-weight: 500;
 }
 
-.portfolio-site :deep(.text-secondary) {
-  color: rgba(198, 212, 255, 0.86) !important;
+.hero-description {
+  color: #666666 !important;
 }
 
-.portfolio-site :deep(.bg-white),
-.portfolio-site :deep(.card) {
-  background: rgba(7, 13, 30, 0.74) !important;
-  border: 1px solid rgba(140, 169, 255, 0.14) !important;
-  color: #eff4ff;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+.graph-underline {
+  text-decoration: underline;
+  text-decoration-color: #7f77dd;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
-.portfolio-site :deep(.border-top) {
-  border-top-color: rgba(140, 169, 255, 0.12) !important;
+.hero-primary-btn {
+  background: #ffffff;
+  color: #0d0d0d;
+  border: none;
+  font-weight: 500;
 }
 
-.portfolio-site :deep(.badge.bg-dark) {
-  background-color: rgba(20, 28, 54, 0.9) !important;
-  color: #eff4ff !important;
+.hero-secondary-btn {
+  background: transparent;
+  color: #888888;
+  border: 1px solid #2e2e2e;
 }
 
-.portfolio-site :deep(.badge.bg-secondary) {
-  background-color: rgba(92, 112, 170, 0.9) !important;
+.hero-secondary-btn:hover {
+  color: #cccccc;
+  border-color: #444444;
 }
 
-.portfolio-site :deep(.badge.bg-danger) {
-  background-color: rgba(198, 85, 107, 0.9) !important;
+.vox-feature {
+  width: 100%;
+  background: #141414;
+  border-top: 1px solid #222222;
+  border-bottom: 1px solid #222222;
+}
+
+.vox-live-label {
+  color: #52ff97;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.vox-feature-title {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.vox-feature-subtitle {
+  color: #888888;
+  font-size: 18px;
+}
+
+.vox-feature-copy {
+  max-width: 480px;
+  color: #777777;
+  line-height: 1.8;
+}
+
+.vox-feature-copy p {
+  margin-bottom: 1rem;
+}
+
+.vox-cta {
+  color: #52ff97;
+  border-color: #52ff97;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+.vox-cta:hover {
+  background: rgba(82, 255, 151, 0.08);
+  color: #52ff97;
+  border-color: #52ff97;
+}
+
+.vox-status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.vox-stat-box {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.vox-stat-label {
+  color: #555555;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.vox-stat-value {
+  color: #cccccc;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Courier New', monospace;
+}
+
+.vox-status-live {
+  color: #52ff97;
+}
+
+.vox-status-offline {
+  color: #ff5b5b;
+}
+
+.vox-status-note {
+  color: #444444;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.card {
+  background: #1a1a1a !important;
+  border: 1px solid #2a2a2a !important;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08) !important;
+  border-color: #3a3a3a !important;
+}
+
+.card-body .badge.bg-danger,
+.card-body .badge.bg-secondary,
+.card-body .badge.bg-dark {
+  color: #666666 !important;
+}
+
+.project-card-title {
+  color: #cccccc;
+}
+
+.card-text.text-muted,
+.card-body .text-muted,
+.text-muted.mb-4 {
+  color: #666666 !important;
 }
 
 .card-hover {
