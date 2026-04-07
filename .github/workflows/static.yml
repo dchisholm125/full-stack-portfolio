@@ -39,6 +39,10 @@ jobs:
       - name: Build project
         working-directory: vue-app
         run: npm run build
+
+      - name: Add SPA fallback page
+        working-directory: vue-app
+        run: cp dist/index.html dist/404.html
       # --- NEW STEPS END HERE ---
 
       - name: Setup Pages
