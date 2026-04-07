@@ -10,6 +10,9 @@ const POLL_THOUGHTS_MS = 3000
 const POLL_GRAPH_MS = 4000
 const MAX_THOUGHTS = 28
 const PROMPT_COOLDOWN_SECONDS = 10
+const GET_RETRIES = 2
+const POST_RETRIES = 1
+const RETRYABLE_STATUSES = new Set([404, 429, 500, 502, 503, 504])
 
 interface Thought {
   timestamp: string
@@ -88,10 +91,57 @@ let graphSvgSelection: d3.Selection<SVGSVGElement, unknown, null, undefined> | n
 let graphSimulation: d3.Simulation<GraphNode, undefined> | null = null
 let cooldownTimer: number | null = null
 const pollingTimers: number[] = []
+let statusRequestInFlight = false
+let thoughtsRequestInFlight = false
+let competitionRequestInFlight = false
+let graphRequestInFlight = false
+
+const API_BASE_NORMALIZED = API_BASE.endsWith('/') ? API_BASE : `${API_BASE}/`
 
 function normalizeErrorMessage(err: unknown) {
   if (err instanceof Error) return err.message
   return String(err || 'Unknown error')
+}
+
+function wait(ms: number) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms)
+  })
+}
+
+function buildApiUrl(path: string) {
+  return `${API_BASE_NORMALIZED}${path.replace(/^\//, '')}`
+}
+
+async function fetchWithRetry(path: string, init: RequestInit, retries: number) {
+  let attempt = 0
+  let lastError: unknown = null
+
+  while (attempt <= retries) {
+    try {
+      const response = await fetch(buildApiUrl(path), init)
+
+      if (!response.ok && RETRYABLE_STATUSES.has(response.status) && attempt < retries) {
+        const backoff = 350 * (attempt + 1)
+        await wait(backoff + Math.round(Math.random() * 180))
+        attempt += 1
+        continue
+      }
+
+      return response
+    } catch (err) {
+      lastError = err
+      if (attempt >= retries) {
+        break
+      }
+
+      const backoff = 350 * (attempt + 1)
+      await wait(backoff + Math.round(Math.random() * 180))
+      attempt += 1
+    }
+  }
+
+  throw lastError instanceof Error ? lastError : new Error(`NETWORK_CORS ${path}`)
 }
 
 function clearPollingTimers() {
@@ -176,14 +226,7 @@ function candidateRegion(candidate: Candidate) {
 }
 
 async function apiGet(path: string) {
-  let res: Response
-
-  try {
-    res = await fetch(`${API_BASE}${path}`, { method: 'GET' })
-  } catch {
-    throw new Error(`NETWORK_CORS ${path}`)
-  }
-
+  const res = await fetchWithRetry(path, { method: 'GET' }, GET_RETRIES)
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
     const errMsg = data && data.error ? data.error : `HTTP ${res.status}`
@@ -193,17 +236,11 @@ async function apiGet(path: string) {
 }
 
 async function apiPost(path: string, payload: Record<string, unknown>) {
-  let res: Response
-
-  try {
-    res = await fetch(`${API_BASE}${path}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    })
-  } catch {
-    throw new Error(`NETWORK_CORS ${path}`)
-  }
+  const res = await fetchWithRetry(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }, POST_RETRIES)
 
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
@@ -243,6 +280,9 @@ function mergeThoughts(newThoughts: unknown) {
 }
 
 async function refreshStatus() {
+  if (statusRequestInFlight) return
+  statusRequestInFlight = true
+
   try {
     const [health, status, vitals] = await Promise.all([
       apiGet('/health'),
@@ -262,9 +302,14 @@ async function refreshStatus() {
     state.winnerText = ''
     state.lastCandidates = []
   }
+
+  statusRequestInFlight = false
 }
 
 async function refreshThoughts() {
+  if (thoughtsRequestInFlight) return
+  thoughtsRequestInFlight = true
+
   try {
     const payload = await apiGet('/thoughts')
     mergeThoughts(payload.thoughts || [])
@@ -275,9 +320,14 @@ async function refreshThoughts() {
       state.thoughtKeys.clear()
     }
   }
+
+  thoughtsRequestInFlight = false
 }
 
 async function refreshCompetition() {
+  if (competitionRequestInFlight) return
+  competitionRequestInFlight = true
+
   try {
     const payload = await apiGet('/competition')
     const candidates = Array.isArray(payload.candidates) ? payload.candidates : []
@@ -293,6 +343,8 @@ async function refreshCompetition() {
       state.lastCandidates = []
     }
   }
+
+  competitionRequestInFlight = false
 }
 
 function setPromptLoading(loading: boolean) {
@@ -354,11 +406,15 @@ async function submitPrompt() {
   } catch (err) {
     handleConnectivityError(err)
     const msg = err instanceof Error ? err.message : 'Vox is sleeping'
-    if (/sleeping/i.test(msg) || /failed|network|http 503/i.test(msg.toLowerCase())) {
+    if (/sleeping/i.test(msg) || /failed|network/i.test(msg.toLowerCase())) {
       setOnline(false)
       state.winnerText = ''
       state.lastCandidates = []
       promptStatus.value = 'Vox is sleeping'
+    } else if (/http 503/i.test(msg.toLowerCase())) {
+      promptStatus.value = 'Vox backend busy (503), try again in a moment'
+    } else if (/http 404/i.test(msg.toLowerCase())) {
+      promptStatus.value = 'Vox endpoint not found (404), retrying may help'
     } else {
       promptStatus.value = msg
     }
@@ -483,6 +539,9 @@ function updateGraph(newData: GraphPayload) {
 }
 
 async function refreshGraph() {
+  if (graphRequestInFlight) return
+  graphRequestInFlight = true
+
   try {
     const payload = await apiGet('/nodes')
     graphOffline.value = false
@@ -496,6 +555,8 @@ async function refreshGraph() {
       graphOffline.value = true
     }
   }
+
+  graphRequestInFlight = false
 }
 
 const liveText = computed(() => (state.online ? 'live' : 'offline'))
