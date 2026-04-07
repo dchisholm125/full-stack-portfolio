@@ -350,7 +350,7 @@ async function refreshCompetition() {
 function setPromptLoading(loading: boolean) {
   state.loadingPrompt = Boolean(loading)
   if (state.loadingPrompt) {
-    promptStatus.value = 'sending signal to Vox...'
+    promptStatus.value = 'Vox is processing your prompt...'
   }
 }
 
@@ -375,7 +375,7 @@ function startCooldown(seconds: number) {
     }
 
     clearCooldownTimer()
-    promptStatus.value = state.online ? 'ready' : 'Vox is sleeping'
+    promptStatus.value = ''
   }
 
   tickCooldown()
@@ -388,7 +388,6 @@ async function submitPrompt() {
   if (cooldownLeft.value > 0 || state.loadingPrompt) return
 
   setPromptLoading(true)
-  startCooldown(PROMPT_COOLDOWN_SECONDS)
 
   try {
     const payload = await apiPost('/prompt', { text })
@@ -403,6 +402,7 @@ async function submitPrompt() {
 
     await refreshGraph()
     promptText.value = ''
+    startCooldown(PROMPT_COOLDOWN_SECONDS)
   } catch (err) {
     handleConnectivityError(err)
     const msg = err instanceof Error ? err.message : 'Vox is sleeping'
@@ -584,13 +584,13 @@ const winnerDisplayText = computed(() => {
 const winnerIsSleeping = computed(() => !state.online)
 
 const promptDisabled = computed(() => state.loadingPrompt || cooldownLeft.value > 0 || corsBlocked.value)
-const sendButtonText = computed(() => (state.loadingPrompt ? 'sending...' : 'send'))
+const sendButtonText = computed(() => (state.loadingPrompt ? 'thinking...' : 'send'))
 
 watch(
   () => state.online,
-  (online) => {
+  () => {
     if (!state.loadingPrompt && cooldownLeft.value === 0) {
-      promptStatus.value = online ? 'ready' : 'Vox is sleeping'
+      promptStatus.value = ''
     }
   },
   { immediate: true },
@@ -645,6 +645,13 @@ onUnmounted(() => {
       </div>
     </section>
 
+    <section class="disclaimer-bar" aria-label="research disclaimer">
+      <span class="disclaimer-icon">⚗</span>
+      <span>
+        This is a live experiment, not a product. Vox is a pure Python weighted graph organism running on a home lab server in Amesbury, MA. She learns continuously — including from whatever you type here. Expect the unexpected.
+      </span>
+    </section>
+
     <section class="card prompt-box">
       <input
         v-model="promptText"
@@ -655,7 +662,14 @@ onUnmounted(() => {
         :disabled="promptDisabled"
         @keydown.enter.prevent="submitPrompt"
       >
-      <button class="send-btn" type="button" :disabled="promptDisabled" @click="submitPrompt">{{ sendButtonText }}</button>
+      <button class="send-btn" type="button" :disabled="promptDisabled" @click="submitPrompt">
+        <span>{{ sendButtonText }}</span>
+        <span v-if="state.loadingPrompt" class="loading-dots" aria-hidden="true">
+          <span class="dot-pulse"></span>
+          <span class="dot-pulse"></span>
+          <span class="dot-pulse"></span>
+        </span>
+      </button>
       <div class="prompt-status">{{ promptStatus }}</div>
     </section>
 
@@ -750,6 +764,23 @@ onUnmounted(() => {
   border: 1px solid var(--line);
   background: linear-gradient(180deg, var(--panel-2), var(--panel));
   border-radius: 12px;
+}
+
+.disclaimer-bar {
+  background: #111111;
+  border-top: 1px solid #1e1e1e;
+  border-bottom: 1px solid #1e1e1e;
+  color: #666666;
+  font-size: 0.75rem;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.disclaimer-icon {
+  color: #444444;
 }
 
 .cors-warning {
@@ -1105,6 +1136,10 @@ onUnmounted(() => {
   letter-spacing: 0.04em;
   cursor: pointer;
   min-width: 96px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .send-btn:hover:not(:disabled) {
@@ -1119,9 +1154,45 @@ onUnmounted(() => {
 
 .prompt-status {
   grid-column: 1 / -1;
-  color: #8a8a8a;
+  color: #666666;
   font-size: 0.75rem;
   min-height: 1.1em;
+}
+
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.dot-pulse {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #a0a0a0;
+  animation: dotPulse 1s infinite;
+}
+
+.dot-pulse:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot-pulse:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot-pulse:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% {
+    opacity: 0.2;
+  }
+
+  40% {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1400px) {
