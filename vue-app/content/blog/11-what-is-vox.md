@@ -1,6 +1,6 @@
 ---
 title: What is Vox?
-description: Part structure, part complexity
+description: Part structure, part complexity, fully embodied. (65% brain, 10% body, 1% environment)
 date: 2026-04-30
 tags: ["Research", "AI", "Emergent AI"]
 ---
