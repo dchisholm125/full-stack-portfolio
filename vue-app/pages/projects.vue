@@ -38,8 +38,7 @@
                 <span class="badge bg-light text-dark ms-2 font-mono">Open Source</span>
               </div>
               <p class="text-light mb-4">
-                Graph Organism Generator — the core engine for the Digital Organism 
-                experiments. Pure Python, Hebbian learning, weighted graphs.
+                Graph-Oriented Generator — an alternative approach to "traditional" RAG servers using AST-based graph traversal
               </p>
               <div class="text-light fw-bold">
                 View on GitHub →
