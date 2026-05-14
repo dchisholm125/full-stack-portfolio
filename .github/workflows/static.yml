@@ -24,7 +24,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # --- NEW STEPS START HERE ---
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -40,10 +39,9 @@ jobs:
         working-directory: vue-app
         run: npm run build
 
-      - name: Add SPA fallback page
+      - name: Verify Pages route artifacts
         working-directory: vue-app
-        run: cp dist/index.html dist/404.html
-      # --- NEW STEPS END HERE ---
+        run: test -f dist/index.html && test -f dist/404.html && test -f dist/gog/index.html && test -f dist/CNAME
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -51,8 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # UPDATED: Point this to your build output folder
-          path: './vue-app/dist' 
+          path: './vue-app/dist'
 
       - name: Deploy to GitHub Pages
         id: deployment

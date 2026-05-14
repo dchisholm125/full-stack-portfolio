@@ -58,6 +58,27 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-9">
+              <div class="section-card reference-card mb-4">
+                <div class="section-label font-mono">Public Reference Implementation</div>
+                <h2 class="h2 fw-bold mb-4">GOG-Lite makes the thesis inspectable.</h2>
+                <p>
+                  The public Graph-Oriented Generation repository now contains the GOG
+                  reference implementation, GOG-Lite, benchmark harnesses, gold-context
+                  scoring, failure taxonomy, curated results, and methodology docs.
+                </p>
+                <p>
+                  GOG-Lite is designed to make the core thesis inspectable and
+                  reproducible: codebases are structured symbolic systems, and coding
+                  agents can benefit from graph-routed context instead of flat retrieved
+                  text.
+                </p>
+                <p class="mb-0">
+                  The production-grade GOG engine is developed separately. That private
+                  implementation includes advanced context membranes, scalable onboarding,
+                  graph fusion, commercial integrations, and enterprise-ready workflows.
+                </p>
+              </div>
+
               <div class="section-card">
                 <div class="section-label font-mono">Core Thesis</div>
                 <h2 class="h2 fw-bold mb-4">A codebase is already structured.</h2>
@@ -168,9 +189,27 @@
           </div>
 
           <p class="benchmark-note mt-4 mb-0">
-            In repeated early trials, small-budget RAG could sometimes compete. But as
-            RAG crossed into high-noise context, cost exploded and reliability became
-            unstable. GOG remained competitive with a controlled graph-routed context bundle.
+            Some historical benchmark artifacts were produced before the public/private
+            separation using the fuller GOG engine. Current public reproducibility is
+            through GOG-Lite, the reference implementation included in the public
+            repository.
+          </p>
+
+          <div class="fixture-result mt-4">
+            <div class="section-label font-mono">GOG-Lite Fixture Result</div>
+            <p class="mb-0">
+              On the debug query serialization dry-run fixture, GOG-Lite selected the two
+              gold files with precision=1.0, recall=1.0, noise=0.0, 201 context tokens,
+              and 426 prompt tokens. This is a fixture-level result, not a universal
+              zero-noise claim.
+            </p>
+          </div>
+
+          <p class="benchmark-note mt-4 mb-0">
+            In repeated early trials, high-budget RAG reached very high context noise and
+            much higher cost-to-pass, while graph-routed context remained more controlled.
+            The current research focus is understanding where GOG succeeds, where RAG
+            still wins, and when graph-routed context fails.
           </p>
         </div>
       </section>
@@ -250,9 +289,10 @@
                 </p>
                 <p>The longer-term research direction is a new architecture:</p>
                 <div class="roadmap-list">
-                  <div><strong>GOG</strong> = graph substrate / navigation / context membrane</div>
-                  <div><strong>SRM</strong> = symbolic reasoning and mutation planning</div>
-                  <div><strong>SLM</strong> = language/code renderer</div>
+                  <div><strong>GOG today</strong>: graph-routed context for existing coding assistants.</div>
+                  <div><strong>GOG Professional</strong>: production-grade context infrastructure and integrations.</div>
+                  <div><strong>SRM Lab</strong>: long-term research into symbolic reasoning and mutation planning.</div>
+                  <div><strong>Long-term architecture</strong>: GOG + SRM + SLM.</div>
                 </div>
                 <p class="mb-0">
                   The practical near-term goal is to make existing coding assistants cheaper
@@ -472,9 +512,14 @@ const benchmarkRows = [
   padding: 2rem;
 }
 
+.reference-card {
+  border-color: #c8ced6;
+}
+
 .section-card p,
 .failure-section p,
-.benchmark-note {
+.benchmark-note,
+.fixture-result p {
   color: #59616b;
   font-size: 1.04rem;
   line-height: 1.85;
@@ -526,6 +571,13 @@ const benchmarkRows = [
   background: #ffffff;
   border-top: 1px solid #e9ecef;
   border-bottom: 1px solid #e9ecef;
+}
+
+.fixture-result {
+  padding: 1.35rem 1.5rem;
+  border: 1px solid #d7dce2;
+  border-radius: 8px;
+  background: #f8f9fa;
 }
 
 .repo-link {
