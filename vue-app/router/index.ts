@@ -6,6 +6,7 @@ import ContactPage from '../pages/contact.vue'
 import DicePage from '../pages/dice.vue'
 import DrumKitPage from '../pages/drum-kit.vue'
 import GreenspacePage from '../pages/greenspace.vue'
+import GogPage from '../pages/gog.vue'
 import HomePage from '../pages/index.vue'
 import MondrianPaintingPage from '../pages/mondrian-painting.vue'
 import MovieRankingPage from '../pages/movie-ranking.vue'
@@ -28,6 +29,7 @@ const router = createRouter({
     { path: '/dice', component: DicePage },
     { path: '/drum-kit', component: DrumKitPage },
     { path: '/greenspace', component: GreenspacePage },
+    { path: '/gog', component: GogPage },
     { path: '/mondrian-painting', component: MondrianPaintingPage },
     { path: '/movie-ranking', component: MovieRankingPage },
     { path: '/philosophy-blog', component: PhilosophyBlogPage },

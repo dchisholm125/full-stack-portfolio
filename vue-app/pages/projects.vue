@@ -25,26 +25,25 @@
           </div>
         </div>
 
-        <!-- GOG - Links to GitHub -->
+        <!-- GOG - Research Page -->
         <div class="col-md-6">
-          <a 
-            href="https://github.com/dchisholm125/graph-oriented-generation" 
-            target="_blank"
+          <NuxtLink
+            to="/gog"
             class="text-decoration-none d-block h-100"
           >
             <div class="card h-100 p-4 border-0 shadow-sm bg-dark text-white card-hover">
               <div class="d-flex align-items-center mb-3">
                 <h3 class="h4 fw-bold mb-0 text-white">GOG</h3>
-                <span class="badge bg-light text-dark ms-2 font-mono">Open Source</span>
+                <span class="badge bg-light text-dark ms-2 font-mono">Research</span>
               </div>
               <p class="text-light mb-4">
-                Graph-Oriented Generator — an alternative approach to "traditional" RAG servers using AST-based graph traversal
+                Graph-Oriented Generation — a graph-native context layer for AI coding agents that routes repository structure before tokens are spent.
               </p>
               <div class="text-light fw-bold">
-                View on GitHub →
+                View project page →
               </div>
             </div>
-          </a>
+          </NuxtLink>
         </div>
 
         <!-- Talk2Code - Public Repo -->

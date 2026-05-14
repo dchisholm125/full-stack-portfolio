@@ -180,20 +180,20 @@ onMounted(() => {
             </div>
           </div>
 
-          <!-- SRM / GOG -->
+          <!-- GOG -->
           <div class="col-md-4">
             <div class="card h-100 border-0 shadow-sm p-4 bg-white card-hover">
               <div class="card-body">
                 <div class="mb-3">
-                  <span class="badge bg-secondary">Paper</span>
+                  <span class="badge bg-secondary">Research</span>
                 </div>
-                <h3 class="h5 fw-bold mb-3 project-card-title">Semantic Reasoning Membrane</h3>
+                <h3 class="h5 fw-bold mb-3 project-card-title">Graph-Oriented Generation</h3>
                 <p class="card-text text-muted mb-4">
-                  Benchmarking semantic primitive emergence in small language models. 
-                  Evidence that a shared concept layer exists between 0.5B and 8B 
-                  parameters — and that you can query it without finetuning.
+                  A graph-native context layer for AI coding agents. Early repeated
+                  trials compare graph-routed context against flat retrieval budgets
+                  without claiming universal superiority.
                 </p>
-                <span class="text-muted fw-bold">→ Coming soon</span>
+                <NuxtLink to="/gog" class="text-dark fw-bold text-decoration-none d-inline-block link-arrow">View GOG research →</NuxtLink>
               </div>
             </div>
           </div>
