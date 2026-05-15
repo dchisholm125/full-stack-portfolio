@@ -25,7 +25,7 @@
                 GitHub Repo ->
               </a>
               <a href="#benchmarks" class="btn btn-outline-light btn-lg px-4">
-                Latest Benchmarks
+                Case Study Metrics
               </a>
             </div>
           </div>
@@ -54,6 +54,70 @@
     </header>
 
     <main>
+      <section class="gog-section case-study-section">
+        <div class="container">
+          <div class="case-study-card">
+            <div class="row g-4 align-items-start">
+              <div class="col-lg-5">
+                <div class="section-label font-mono">Private Case Study / May 15, 2026</div>
+                <h2 class="h2 fw-bold mb-4">Orca Whirlpools: cleaner context at full recall.</h2>
+                <p>
+                  A paired benchmark tested GOG Membrane against vector, keyword, and
+                  hybrid RAG on the same pinned Orca Whirlpools commit, using the same
+                  task prompt, model, output schema, patch applier, validation command,
+                  attempts, and clean worktree setup.
+                </p>
+                <p>
+                  The task was intentionally concrete: add unit coverage proving
+                  <code>WhirlpoolDeployment::default()</code> matches
+                  <code>WhirlpoolDeployment::mainnet()</code> for both program id and
+                  config account, without changing the public API.
+                </p>
+                <p class="mb-0">
+                  The finding is not that RAG cannot solve this task. Strong keyword and
+                  hybrid baselines solved it once they surfaced the target file. The
+                  finding is that GOG reached full recall with cleaner package-scoped
+                  context, fewer files, lower noise, and fewer total tokens than the
+                  full-recall hybrid baseline.
+                </p>
+              </div>
+              <div class="col-lg-7">
+                <div class="case-metric-grid">
+                  <div class="case-metric primary">
+                    <span class="case-metric-label">GOG tokens</span>
+                    <strong>4,965</strong>
+                    <span>16.5% fewer than Hybrid RAG 4000</span>
+                  </div>
+                  <div class="case-metric">
+                    <span class="case-metric-label">Context recall</span>
+                    <strong>1.0</strong>
+                    <span>Full recall, same as fair hybrid</span>
+                  </div>
+                  <div class="case-metric">
+                    <span class="case-metric-label">Retrieved files</span>
+                    <strong>6</strong>
+                    <span>vs 14 for Hybrid RAG 4000</span>
+                  </div>
+                  <div class="case-metric">
+                    <span class="case-metric-label">Noise ratio</span>
+                    <strong>0.333</strong>
+                    <span>vs 0.714 for Hybrid RAG 4000</span>
+                  </div>
+                </div>
+
+                <div class="case-callout mt-4">
+                  <div class="section-label font-mono">Strongest Claim</div>
+                  <p class="mb-0">
+                    GOG does not merely make the prompt smaller. It can preserve full
+                    task recall while reducing package noise.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="gog-section">
         <div class="container">
           <div class="row justify-content-center">
@@ -81,18 +145,23 @@
 
               <div class="section-card">
                 <div class="section-label font-mono">Core Thesis</div>
-                <h2 class="h2 fw-bold mb-4">A codebase is already structured.</h2>
+                <h2 class="h2 fw-bold mb-4">The problem is context quality, not just context size.</h2>
                 <p>
                   Coding assistants often rely on Retrieval-Augmented Generation (RAG):
                   vectorize the repo, retrieve chunks, and ask the model to infer the
                   architecture from a pile of text.
                 </p>
-                <p class="mb-0">
+                <p>
                   GOG starts from a different assumption: a codebase is already a
                   structured symbolic system. Files, imports, functions, classes, tests,
                   dependencies, and runtime behavior form a graph. GOG uses that graph to
                   build a smaller, more relevant context bundle before the model ever
                   starts reasoning.
+                </p>
+                <p class="mb-0">
+                  The Orca result sharpens the thesis: the goal is not to claim that flat
+                  retrieval never works. The goal is to make the model carry less unrelated
+                  structure when it already has enough information to solve the task.
                 </p>
               </div>
             </div>
@@ -111,9 +180,9 @@
                 </div>
                 <ul class="comparison-list">
                   <li>Vector search over chunks</li>
-                  <li>Large pile of possibly relevant files</li>
-                  <li>Model infers structure</li>
-                  <li>Higher token cost / more noise</li>
+                  <li>Keyword and hybrid retrieval can solve lexically obvious tasks</li>
+                  <li>Full recall can arrive with unrelated package and manifest noise</li>
+                  <li>More budget can increase noise without improving semantics</li>
                 </ul>
               </div>
             </div>
@@ -124,30 +193,32 @@
                   <h2 class="h4 fw-bold mb-0">Graph-Oriented Generation</h2>
                 </div>
                 <ul class="comparison-list">
-                  <li>Codebase graph</li>
-                  <li>Relevant files + symbols + tests</li>
-                  <li>Model receives structured context</li>
-                  <li>Lower token cost / cleaner reasoning path</li>
+                  <li>Codebase graph and package boundary first</li>
+                  <li>Target file plus nearby package metadata</li>
+                  <li>Full task recall with fewer unrelated files</li>
+                  <li>Lower token spend at comparable recall</li>
                 </ul>
               </div>
             </div>
           </div>
-          <p class="comparison-footer mt-4 mb-0">RAG brute-forces context. GOG routes context.</p>
+          <p class="comparison-footer mt-4 mb-0">
+            The fair comparison is not "GOG passed and RAG failed." It is "GOG passed with cleaner context."
+          </p>
         </div>
       </section>
 
       <section id="benchmarks" class="gog-section benchmark-section">
         <div class="container">
-          <div class="section-label font-mono">Benchmark Highlights</div>
+          <div class="section-label font-mono">Case Study Metrics</div>
           <div class="d-flex align-items-end justify-content-between gap-3 flex-wrap mb-4">
-            <h2 class="h2 fw-bold mb-0">Early repeated trials</h2>
+            <h2 class="h2 fw-bold mb-0">Best direct comparison</h2>
             <a
               href="https://github.com/dchisholm125/graph-oriented-generation"
               target="_blank"
               rel="noopener noreferrer"
               class="repo-link"
             >
-              View benchmark artifacts ->
+              View public repo ->
             </a>
           </div>
 
@@ -156,14 +227,16 @@
               <thead>
                 <tr>
                   <th>Mode</th>
-                  <th>Pass@1</th>
-                  <th>Tokens spent/pass</th>
-                  <th>Relative cost-to-pass</th>
+                  <th>Pass</th>
+                  <th>Total tokens</th>
+                  <th>Context precision</th>
+                  <th>Context recall</th>
                   <th>Noise ratio</th>
+                  <th>Retrieved files</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="row in benchmarkRows" :key="row.mode" :class="{ 'highlight-row': row.mode === 'GOG' }">
+                <tr v-for="row in benchmarkRows" :key="row.mode" :class="{ 'highlight-row': row.mode === 'GOG Membrane' }">
                   <td>{{ row.mode }}</td>
                   <td>{{ row.pass }}</td>
                   <td>
@@ -174,7 +247,8 @@
                       </span>
                     </div>
                   </td>
-                  <td>{{ row.cost }}</td>
+                  <td>{{ row.precision }}</td>
+                  <td>{{ row.recall }}</td>
                   <td>
                     <div class="metric-cell">
                       <span>{{ row.noise }}</span>
@@ -183,34 +257,84 @@
                       </span>
                     </div>
                   </td>
+                  <td>{{ row.files }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <p class="benchmark-note mt-4 mb-0">
-            Some historical benchmark artifacts were produced before the public/private
-            separation using the fuller GOG engine. Current public reproducibility is
-            through GOG-Lite, the reference implementation included in the public
-            repository.
+            Both modes passed. Both reached full context recall. Both edited only
+            <code>rust-sdk/client/src/config.rs</code>. GOG Membrane used 4,965 tokens
+            against Hybrid RAG 4000's 5,946 tokens, retrieved 6 files instead of 14,
+            and reduced the measured noise ratio from 0.7143 to 0.3333.
           </p>
 
           <div class="fixture-result mt-4">
-            <div class="section-label font-mono">GOG-Lite Fixture Result</div>
+            <div class="section-label font-mono">Validation</div>
             <p class="mb-0">
-              On the debug query serialization dry-run fixture, GOG-Lite selected the two
-              gold files with precision=1.0, recall=1.0, noise=0.0, 201 context tokens,
-              and 426 prompt tokens. This is a fixture-level result, not a universal
-              zero-noise claim.
+              The GOG patch added a localized <code>#[cfg(test)]</code> module using
+              existing public methods: <code>WhirlpoolDeployment::default()</code>,
+              <code>WhirlpoolDeployment::mainnet()</code>, <code>.id()</code>, and
+              <code>.config_address()</code>. The Rust client library validation passed:
+              <code>24 passed; 0 failed</code>.
             </p>
           </div>
 
           <p class="benchmark-note mt-4 mb-0">
-            In repeated early trials, high-budget RAG reached very high context noise and
-            much higher cost-to-pass, while graph-routed context remained more controlled.
-            The current research focus is understanding where GOG succeeds, where RAG
-            still wins, and when graph-routed context fails.
+            The public repository remains the inspectable GOG-Lite reference. This Orca
+            artifact came from the private GOG engine and should be read as a private case
+            study, not as a universal benchmark claim.
           </p>
+        </div>
+      </section>
+
+      <section class="gog-section context-section">
+        <div class="container">
+          <div class="row g-4 align-items-start">
+            <div class="col-lg-5">
+              <div class="section-label font-mono">Retrieved Context</div>
+              <h2 class="h2 fw-bold mb-4">Package boundary mattered.</h2>
+              <p>
+                GOG selected the Rust client package boundary and included the target
+                config module plus nearby package metadata. Hybrid RAG found the target
+                file and the gold context too, but it carried substantially more unrelated
+                manifests and neighboring Rust files.
+              </p>
+              <p class="mb-0">
+                That difference is the point of the case study: once recall is sufficient,
+                the next question is how much irrelevant structure the model must ignore.
+              </p>
+            </div>
+            <div class="col-lg-7">
+              <div class="context-columns">
+                <div class="context-list">
+                  <div class="section-label font-mono">GOG Membrane / 6 files</div>
+                  <ul>
+                    <li>rust-sdk/client/Cargo.toml</li>
+                    <li>rust-sdk/client/package.json</li>
+                    <li>rust-sdk/client/src/config.rs</li>
+                    <li>rust-sdk/client/src/core_types/tick_array.rs</li>
+                    <li>rust-sdk/client/src/gpa/utils.rs</li>
+                    <li>rust-sdk/client/src/lib.rs</li>
+                  </ul>
+                </div>
+                <div class="context-list muted-list">
+                  <div class="section-label font-mono">Hybrid RAG 4000 / 14 files</div>
+                  <ul>
+                    <li>rust-sdk/client/src/config.rs</li>
+                    <li>rust-sdk/whirlpool/package.json</li>
+                    <li>rust-sdk/client/Cargo.toml</li>
+                    <li>docs/rust/package.json</li>
+                    <li>rust-sdk/macros/package.json</li>
+                    <li>rust-sdk/client/src/pda/whirlpools_config_extension.rs</li>
+                    <li>docs/rust/Cargo.toml</li>
+                    <li>...plus additional package files</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -218,23 +342,19 @@
         <div class="container">
           <div class="row g-4 align-items-start">
             <div class="col-lg-5">
-              <div class="section-label font-mono">Failure Taxonomy</div>
-              <h2 class="h2 fw-bold mb-4">Not all failures are equal.</h2>
+              <div class="section-label font-mono">Failure And Fairness</div>
+              <h2 class="h2 fw-bold mb-4">The result is narrower, and stronger.</h2>
               <p>
-                The benchmark now separates recoverable renderer/format failures from
-                deeper semantic/context failures.
+                Vector-only RAG failed across every tested budget. Keyword and hybrid RAG
+                passed when retrieval surfaced the target file. That makes the result more
+                useful, not less: it compares context quality after the easy objection has
+                been removed.
               </p>
               <p>
-                In the latest repeated-trial artifact, GOG's observed miss was
-                <code>invalid_json</code>: recoverable, low architectural concern. RAG's
-                hard-task misses were mostly <code>missing_semantic_behavior</code>:
-                unrecoverable, high architectural concern.
-              </p>
-              <p class="mb-0">
-                This distinction matters because a JSON-format miss can often be fixed
-                with validation and retry. A missing semantic behavior usually means the
-                model did not receive, preserve, or correctly use the structure needed to
-                solve the task.
+                Higher vector budgets retrieved more files and more noise, but still
+                produced validation failures or semantic misses. The practical warning is
+                that more context can make the model less grounded if the context provider
+                does not preserve the right structure.
               </p>
             </div>
             <div class="col-lg-7">
@@ -243,30 +363,30 @@
                   <thead>
                     <tr>
                       <th>Mode</th>
-                      <th>Failure class</th>
+                      <th>Observed outcome</th>
                       <th>Interpretation</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>GOG</td>
-                      <td>invalid_json x1</td>
-                      <td>Recoverable renderer-format noise</td>
+                      <td>GOG Membrane</td>
+                      <td>Passed with full recall</td>
+                      <td>Cleaner package-scoped context</td>
                     </tr>
                     <tr>
-                      <td>RAG 1000</td>
-                      <td>missing_semantic_behavior x1</td>
-                      <td>Unrecoverable semantic/context miss</td>
+                      <td>Keyword RAG</td>
+                      <td>Passed when target file surfaced</td>
+                      <td>Strong lexical baseline for this task</td>
                     </tr>
                     <tr>
-                      <td>RAG 16000</td>
-                      <td>missing_semantic_behavior x2, invalid_json x1</td>
-                      <td>High-noise context instability</td>
+                      <td>Hybrid RAG</td>
+                      <td>Passed at full recall</td>
+                      <td>More files, more noise, more tokens than GOG</td>
                     </tr>
                     <tr>
-                      <td>RAG 64000</td>
-                      <td>missing_semantic_behavior x1</td>
-                      <td>More context did not guarantee structural correctness</td>
+                      <td>Vector RAG</td>
+                      <td>Failed across all budgets</td>
+                      <td>More budget increased noise without fixing semantics</td>
                     </tr>
                   </tbody>
                 </table>
@@ -347,47 +467,24 @@
 <script setup lang="ts">
 const benchmarkRows = [
   {
-    mode: 'GOG',
-    pass: '8/9',
-    tokens: '9,676',
-    cost: '1.00x',
-    noise: '0.523',
-    tokenWidth: '12%',
-    noiseWidth: '55%',
+    mode: 'GOG Membrane',
+    pass: 'yes',
+    tokens: '4,965',
+    precision: '0.6667',
+    recall: '1.0',
+    noise: '0.3333',
+    files: '6',
+    tokenWidth: '83%',
+    noiseWidth: '47%',
   },
   {
-    mode: 'RAG 1000',
-    pass: '8/9',
-    tokens: '7,158',
-    cost: '0.74x',
-    noise: '0.306',
-    tokenWidth: '9%',
-    noiseWidth: '32%',
-  },
-  {
-    mode: 'RAG 4000',
-    pass: '9/9',
-    tokens: '12,764',
-    cost: '1.32x',
-    noise: '0.556',
-    tokenWidth: '15%',
-    noiseWidth: '58%',
-  },
-  {
-    mode: 'RAG 16000',
-    pass: '6/9',
-    tokens: '66,216',
-    cost: '6.84x',
-    noise: '0.902',
-    tokenWidth: '79%',
-    noiseWidth: '95%',
-  },
-  {
-    mode: 'RAG 64000',
-    pass: '8/9',
-    tokens: '83,805',
-    cost: '8.66x',
-    noise: '0.951',
+    mode: 'Hybrid RAG 4000',
+    pass: 'yes',
+    tokens: '5,946',
+    precision: '0.2857',
+    recall: '1.0',
+    noise: '0.7143',
+    files: '14',
     tokenWidth: '100%',
     noiseWidth: '100%',
   },
@@ -441,6 +538,9 @@ const benchmarkRows = [
 .gog-hero-panel,
 .section-card,
 .comparison-card,
+.case-study-card,
+.case-callout,
+.context-list,
 .links-card {
   border: 1px solid #e0e3e7;
   border-radius: 8px;
@@ -508,6 +608,99 @@ const benchmarkRows = [
   padding: 5rem 0;
 }
 
+.case-study-section {
+  background: #111315;
+  border-bottom: 1px solid #24272b;
+}
+
+.case-study-card {
+  padding: 2.25rem;
+  color: #d9dde2;
+  background:
+    linear-gradient(135deg, rgba(25, 28, 32, 0.96), rgba(10, 11, 12, 0.96)),
+    #111315;
+  border-color: #30343a;
+}
+
+.case-study-card .section-label {
+  color: #9ca3ad;
+}
+
+.case-study-card h2,
+.case-callout p {
+  color: #ffffff;
+}
+
+.case-study-card p {
+  color: #aeb6c0;
+  font-size: 1.04rem;
+  line-height: 1.85;
+}
+
+.case-study-card code {
+  color: #f8f9fa;
+  background: #272b30;
+}
+
+.case-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.case-metric {
+  min-height: 136px;
+  padding: 1.25rem;
+  border: 1px solid #343a40;
+  border-radius: 8px;
+  background: #191c20;
+}
+
+.case-metric.primary {
+  border-color: #eef1f5;
+  background: #f8f9fa;
+}
+
+.case-metric-label {
+  display: block;
+  margin-bottom: 0.7rem;
+  color: #8a929c;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.case-metric strong {
+  display: block;
+  color: #ffffff;
+  font-size: 2.35rem;
+  line-height: 1;
+}
+
+.case-metric span:last-child {
+  display: block;
+  margin-top: 0.85rem;
+  color: #9ca3ad;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.case-metric.primary .case-metric-label,
+.case-metric.primary span:last-child {
+  color: #59616b;
+}
+
+.case-metric.primary strong {
+  color: #111315;
+}
+
+.case-callout {
+  padding: 1.35rem 1.5rem;
+  background: #202429;
+  border-color: #343a40;
+  box-shadow: none;
+}
+
 .section-card {
   padding: 2rem;
 }
@@ -519,7 +712,8 @@ const benchmarkRows = [
 .section-card p,
 .failure-section p,
 .benchmark-note,
-.fixture-result p {
+.fixture-result p,
+.context-section p {
   color: #59616b;
   font-size: 1.04rem;
   line-height: 1.85;
@@ -669,6 +863,38 @@ const benchmarkRows = [
   background: #f6f7f8;
 }
 
+.context-section {
+  background: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.context-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.context-list {
+  min-height: 100%;
+  padding: 1.4rem;
+  box-shadow: none;
+}
+
+.context-list ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+  color: #343a40;
+  font-size: 0.93rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.muted-list {
+  background: #f8f9fa;
+}
+
 code {
   color: #212529;
   background: #edf0f2;
@@ -742,8 +968,14 @@ code {
 
   .section-card,
   .comparison-card,
+  .case-study-card,
   .links-card {
     padding: 1.35rem;
+  }
+
+  .case-metric-grid,
+  .context-columns {
+    grid-template-columns: 1fr;
   }
 
   .links-card {
