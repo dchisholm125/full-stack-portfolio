@@ -125,8 +125,8 @@
 
           <div class="benchmark-claim">
             On this real-world SDK task, GOG Professional selected cleaner context, stayed
-            in the correct repo stratum, and reached a validated patch with fewer context
-            tokens than RAG baselines.
+            in the correct repo stratum, and reached a validated patch with cleaner context,
+            lower noise, and better repo-stratum localization than RAG baselines.
           </div>
 
           <div class="benchmark-table-wrap">
@@ -155,6 +155,12 @@
               </tbody>
             </table>
           </div>
+
+          <p class="benchmark-caveat">
+            This is one benchmark on one real-world SDK task, not a universal claim. The
+            purpose is to show the measurable difference between flat retrieval and
+            repo-structured context on a task where structural locality matters.
+          </p>
 
           <div class="evidence-grid">
             <div class="evidence-card">
@@ -186,6 +192,9 @@
           <div class="why-grid">
             <div v-for="item in whyItems" :key="item" class="why-item">{{ item }}</div>
           </div>
+          <p class="next-metric">
+            Next benchmark focus: cost per validated patch - not just prompt size.
+          </p>
         </div>
       </section>
 
@@ -221,7 +230,7 @@
                 View public GOG Lite repo
               </a>
               <a href="mailto:dchisholm125@gmail.com?subject=GOG%20technical%20walkthrough">
-                Contact me / technical walkthrough
+                Interested in testing GOG against your coding-agent workflow? Contact me for a technical walkthrough.
               </a>
               <a href="#benchmarks">Read benchmark summary</a>
               <NuxtLink to="/">Portfolio home</NuxtLink>
@@ -526,6 +535,14 @@ const whyItems = [
   line-height: 1.75;
 }
 
+.benchmark-caveat {
+  max-width: 980px;
+  margin: 1rem 0 0;
+  color: #aeb6c2;
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
 .benchmark-table-wrap {
   overflow-x: auto;
   border: 1px solid #343b45;
@@ -626,6 +643,13 @@ code {
   border-radius: 8px;
   color: #28313b;
   background: #f7f9fb;
+  font-weight: 700;
+}
+
+.next-metric {
+  margin: 1.25rem 0 0;
+  color: #424b56;
+  font-size: 1.03rem;
   font-weight: 700;
 }
 
